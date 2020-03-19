@@ -1,0 +1,36 @@
+{
+  "jhApp": {
+    "foodCategory": {
+      "home": {
+        "title": "Food Categories",
+        "createLabel": "Create a new Food Category",
+        "createOrEditLabel": "Create or edit a Food Category",
+        "notFound": "No Food Categories found"
+      },
+      "created": "A new Food Category is created with identifier {{ param }}",
+      "updated": "A Food Category is updated with identifier {{ param }}",
+      "deleted": "A Food Category is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Food Category {{ id }}?"
+      },
+      "detail": {
+        "title": "Food Category"
+      },
+      "name": "Name",
+      "sn": "Sn",
+      "icon": "Icon",
+      "sort": "Sort",
+      "createdBy": "Created By",
+      "createdDate": "Created Date",
+      "lastModifiedDate": "Last Modified Date",
+      "lastModifiedBy": "Last Modified By",
+      "help": {
+        "sn": "编号",
+        "icon": "图标",
+        "sort": "序号",
+        "createdBy": "创建者登录账号",
+        "lastModifiedBy": "最后修改者登录账号"
+      }
+    }
+  }
+}

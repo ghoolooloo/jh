@@ -1,0 +1,101 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="jhApp.food.home.title">Foods</span>
+
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-food" [routerLink]="['/food/new']">
+            <fa-icon icon="plus"></fa-icon>
+            <span  jhiTranslate="jhApp.food.home.createLabel">
+            Create a new Food
+            </span>
+        </button>
+    </h2>
+
+    <jhi-alert-error></jhi-alert-error>
+
+    <jhi-alert></jhi-alert>
+
+    <div class="alert alert-warning" id="no-result" *ngIf="foods?.length === 0">
+        <span jhiTranslate="jhApp.food.home.notFound">No foods found</span>
+    </div>
+
+    <div class="table-responsive" id="entities" *ngIf="foods?.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
+                    <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="name"><span jhiTranslate="jhApp.food.name">Name</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="sn"><span jhiTranslate="jhApp.food.sn">Sn</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="thumbnail"><span jhiTranslate="jhApp.food.thumbnail">Thumbnail</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="picture"><span jhiTranslate="jhApp.food.picture">Picture</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="price"><span jhiTranslate="jhApp.food.price">Price</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="packingFee"><span jhiTranslate="jhApp.food.packingFee">Packing Fee</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="desc"><span jhiTranslate="jhApp.food.desc">Desc</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="sort"><span jhiTranslate="jhApp.food.sort">Sort</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="feedingMode"><span jhiTranslate="jhApp.food.feedingMode">Feeding Mode</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="createdBy"><span jhiTranslate="jhApp.food.createdBy">Created By</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="createdDate"><span jhiTranslate="jhApp.food.createdDate">Created Date</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="lastModifiedDate"><span jhiTranslate="jhApp.food.lastModifiedDate">Last Modified Date</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="lastModifiedBy"><span jhiTranslate="jhApp.food.lastModifiedBy">Last Modified By</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="categoryId"><span jhiTranslate="jhApp.food.category">Category</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let food of foods ;trackBy: trackId">
+                    <td><a [routerLink]="['/food', food.id, 'view']">{{ food.id }}</a></td>
+                    <td>{{ food.name }}</td>
+                    <td>{{ food.sn }}</td>
+                    <td>{{ food.thumbnail }}</td>
+                    <td>{{ food.picture }}</td>
+                    <td>{{ food.price }}</td>
+                    <td>{{ food.packingFee }}</td>
+                    <td>{{ food.desc }}</td>
+                    <td>{{ food.sort }}</td>
+                    <td jhiTranslate="{{ 'jhApp.FeedingMode.' + food.feedingMode }}">{{ food.feedingMode }}</td>
+                    <td>{{ food.createdBy }}</td>
+                    <td>{{ food.createdDate | date:'medium' }}</td>
+                    <td>{{ food.lastModifiedDate | date:'medium' }}</td>
+                    <td>{{ food.lastModifiedBy }}</td>
+                    <td>
+                        <div *ngIf="food.categoryId">
+                            <a [routerLink]="['/food-category', food.categoryId , 'view']" >{{ food.categoryId }}</a>
+                        </div>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group">
+                            <button type="submit"
+                                    [routerLink]="['/food', food.id, 'view']"
+                                    class="btn btn-info btn-sm">
+                                <fa-icon icon="eye"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                            </button>
+
+                            <button type="submit"
+                                    [routerLink]="['/food', food.id, 'edit']"
+                                    class="btn btn-primary btn-sm">
+                                <fa-icon icon="pencil-alt"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                            </button>
+
+                            <button type="submit" (click)="delete(food)"
+                                    class="btn btn-danger btn-sm">
+                                <fa-icon icon="times"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div *ngIf="foods?.length > 0">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="ngbPaginationPage" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage($event)"></ngb-pagination>
+        </div>
+    </div>
+</div>

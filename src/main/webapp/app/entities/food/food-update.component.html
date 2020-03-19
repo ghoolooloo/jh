@@ -1,0 +1,236 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-food-heading" jhiTranslate="jhApp.food.home.createOrEditLabel">Create or edit a Food</h2>
+
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+
+                <div class="form-group" [hidden]="!editForm.get('id')!.value">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jhApp.food.name" for="field_name">Name</label>
+                    <input type="text" class="form-control" name="name" id="field_name"
+                           formControlName="name"/>
+                    <div *ngIf="editForm.get('name')!.invalid && (editForm.get('name')!.dirty || editForm.get('name')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('name')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('name')?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 20 }">
+                        This field cannot be longer than 20 characters.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jhApp.food.sn" for="field_sn" [ngbTooltip]="'jhApp.food.help.sn' | translate">Sn</label>
+                    <input type="text" class="form-control" name="sn" id="field_sn"
+                           formControlName="sn"/>
+                    <div *ngIf="editForm.get('sn')!.invalid && (editForm.get('sn')!.dirty || editForm.get('sn')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('sn')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('sn')?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 10 }">
+                        This field cannot be longer than 10 characters.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jhApp.food.thumbnail" for="field_thumbnail" [ngbTooltip]="'jhApp.food.help.thumbnail' | translate">Thumbnail</label>
+                    <input type="text" class="form-control" name="thumbnail" id="field_thumbnail"
+                           formControlName="thumbnail"/>
+                    <div *ngIf="editForm.get('thumbnail')!.invalid && (editForm.get('thumbnail')!.dirty || editForm.get('thumbnail')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('thumbnail')?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 200 }">
+                        This field cannot be longer than 200 characters.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jhApp.food.picture" for="field_picture" [ngbTooltip]="'jhApp.food.help.picture' | translate">Picture</label>
+                    <input type="text" class="form-control" name="picture" id="field_picture"
+                           formControlName="picture"/>
+                    <div *ngIf="editForm.get('picture')!.invalid && (editForm.get('picture')!.dirty || editForm.get('picture')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('picture')?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 200 }">
+                        This field cannot be longer than 200 characters.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jhApp.food.price" for="field_price" [ngbTooltip]="'jhApp.food.help.price' | translate">Price</label>
+                    <input type="number" class="form-control" name="price" id="field_price"
+                           formControlName="price"/>
+                    <div *ngIf="editForm.get('price')!.invalid && (editForm.get('price')!.dirty || editForm.get('price')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('price')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('price')?.errors?.min" jhiTranslate="entity.validation.min" [translateValues]="{ min: 1 }">
+                            This field should be at least 1.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('price')?.errors?.max" jhiTranslate="entity.validation.max" [translateValues]="{ max: 999999 }">
+                            This field cannot be more than 999999.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.get('price')?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jhApp.food.packingFee" for="field_packingFee" [ngbTooltip]="'jhApp.food.help.packingFee' | translate">Packing Fee</label>
+                    <input type="number" class="form-control" name="packingFee" id="field_packingFee"
+                           formControlName="packingFee"/>
+                    <div *ngIf="editForm.get('packingFee')!.invalid && (editForm.get('packingFee')!.dirty || editForm.get('packingFee')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('packingFee')?.errors?.min" jhiTranslate="entity.validation.min" [translateValues]="{ min: 0 }">
+                            This field should be at least 0.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('packingFee')?.errors?.max" jhiTranslate="entity.validation.max" [translateValues]="{ max: 999999 }">
+                            This field cannot be more than 999999.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.get('packingFee')?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jhApp.food.desc" for="field_desc" [ngbTooltip]="'jhApp.food.help.desc' | translate">Desc</label>
+                    <input type="text" class="form-control" name="desc" id="field_desc"
+                           formControlName="desc"/>
+                    <div *ngIf="editForm.get('desc')!.invalid && (editForm.get('desc')!.dirty || editForm.get('desc')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('desc')?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 300 }">
+                        This field cannot be longer than 300 characters.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jhApp.food.sort" for="field_sort" [ngbTooltip]="'jhApp.food.help.sort' | translate">Sort</label>
+                    <input type="number" class="form-control" name="sort" id="field_sort"
+                           formControlName="sort"/>
+                    <div *ngIf="editForm.get('sort')!.invalid && (editForm.get('sort')!.dirty || editForm.get('sort')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('sort')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('sort')?.errors?.min" jhiTranslate="entity.validation.min" [translateValues]="{ min: 0 }">
+                            This field should be at least 0.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('sort')?.errors?.max" jhiTranslate="entity.validation.max" [translateValues]="{ max: 999999999 }">
+                            This field cannot be more than 999999999.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.get('sort')?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jhApp.food.feedingMode" for="field_feedingMode" [ngbTooltip]="'jhApp.food.help.feedingMode' | translate">Feeding Mode</label>
+                    <select class="form-control" name="feedingMode" formControlName="feedingMode" id="field_feedingMode">
+                        <option value="DINNER">{{ 'jhApp.FeedingMode.DINNER' | translate }}</option>
+                        <option value="DESSERT">{{ 'jhApp.FeedingMode.DESSERT' | translate }}</option>
+                    </select>
+                    <div *ngIf="editForm.get('feedingMode')!.invalid && (editForm.get('feedingMode')!.dirty || editForm.get('feedingMode')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('feedingMode')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jhApp.food.createdBy" for="field_createdBy">Created By</label>
+                    <input type="text" class="form-control" name="createdBy" id="field_createdBy"
+                           formControlName="createdBy"/>
+                    <div *ngIf="editForm.get('createdBy')!.invalid && (editForm.get('createdBy')!.dirty || editForm.get('createdBy')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('createdBy')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('createdBy')?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 20 }">
+                        This field cannot be longer than 20 characters.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jhApp.food.createdDate" for="field_createdDate">Created Date</label>
+                    <div class="d-flex">
+                        <input id="field_createdDate" type="datetime-local" class="form-control" name="createdDate" formControlName="createdDate" placeholder="YYYY-MM-DD HH:mm"/>
+                    </div>
+                    <div *ngIf="editForm.get('createdDate')!.invalid && (editForm.get('createdDate')!.dirty || editForm.get('createdDate')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('createdDate')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.get('createdDate')?.errors?.ZonedDateTimelocal" jhiTranslate="entity.validation.ZonedDateTimelocal">
+                            This field should be a date and time.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jhApp.food.lastModifiedDate" for="field_lastModifiedDate">Last Modified Date</label>
+                    <div class="d-flex">
+                        <input id="field_lastModifiedDate" type="datetime-local" class="form-control" name="lastModifiedDate" formControlName="lastModifiedDate" placeholder="YYYY-MM-DD HH:mm"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jhApp.food.lastModifiedBy" for="field_lastModifiedBy">Last Modified By</label>
+                    <input type="text" class="form-control" name="lastModifiedBy" id="field_lastModifiedBy"
+                           formControlName="lastModifiedBy"/>
+                    <div *ngIf="editForm.get('lastModifiedBy')!.invalid && (editForm.get('lastModifiedBy')!.dirty || editForm.get('lastModifiedBy')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('lastModifiedBy')?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 20 }">
+                        This field cannot be longer than 20 characters.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jhApp.food.category" for="field_category">Category</label>
+                    <select class="form-control" id="field_category" name="category" formControlName="categoryId">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="foodCategoryOption.id" *ngFor="let foodCategoryOption of foodcategories; trackBy: trackById">{{ foodCategoryOption.id }}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+                    <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

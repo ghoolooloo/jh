@@ -1,0 +1,43 @@
+{
+  "jhApp": {
+    "shop": {
+      "home": {
+        "title": "Shops",
+        "createLabel": "Create a new Shop",
+        "createOrEditLabel": "Create or edit a Shop",
+        "notFound": "No Shops found"
+      },
+      "created": "A new Shop is created with identifier {{ param }}",
+      "updated": "A Shop is updated with identifier {{ param }}",
+      "deleted": "A Shop is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Shop {{ id }}?"
+      },
+      "detail": {
+        "title": "Shop"
+      },
+      "name": "Name",
+      "sn": "Sn",
+      "tel": "Tel",
+      "address": "Address",
+      "province": "Province",
+      "city": "City",
+      "district": "District",
+      "offsetType": "Offset Type",
+      "longitude": "Longitude",
+      "latitude": "Latitude",
+      "help": {
+        "name": "门店名称",
+        "sn": "门店编号，即微信门店的poi_id",
+        "tel": "联系电话",
+        "address": "详细地址（不含省市信息）",
+        "province": "省、直辖市、自治区",
+        "city": "城市",
+        "district": "地区",
+        "offsetType": "坐标类型。由于门店来自微信，因此这里坐标类型固定为 MARS",
+        "longitude": "经度",
+        "latitude": "纬度"
+      }
+    }
+  }
+}

@@ -1,0 +1,176 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-shop-heading" jhiTranslate="jhApp.shop.home.createOrEditLabel">Create or edit a Shop</h2>
+
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+
+                <div class="form-group" [hidden]="!editForm.get('id')!.value">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jhApp.shop.name" for="field_name" [ngbTooltip]="'jhApp.shop.help.name' | translate">Name</label>
+                    <input type="text" class="form-control" name="name" id="field_name"
+                           formControlName="name"/>
+                    <div *ngIf="editForm.get('name')!.invalid && (editForm.get('name')!.dirty || editForm.get('name')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('name')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('name')?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 20 }">
+                        This field cannot be longer than 20 characters.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jhApp.shop.sn" for="field_sn" [ngbTooltip]="'jhApp.shop.help.sn' | translate">Sn</label>
+                    <input type="text" class="form-control" name="sn" id="field_sn"
+                           formControlName="sn"/>
+                    <div *ngIf="editForm.get('sn')!.invalid && (editForm.get('sn')!.dirty || editForm.get('sn')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('sn')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('sn')?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 30 }">
+                        This field cannot be longer than 30 characters.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jhApp.shop.tel" for="field_tel" [ngbTooltip]="'jhApp.shop.help.tel' | translate">Tel</label>
+                    <input type="text" class="form-control" name="tel" id="field_tel"
+                           formControlName="tel"/>
+                    <div *ngIf="editForm.get('tel')!.invalid && (editForm.get('tel')!.dirty || editForm.get('tel')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('tel')?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 20 }">
+                        This field cannot be longer than 20 characters.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jhApp.shop.address" for="field_address" [ngbTooltip]="'jhApp.shop.help.address' | translate">Address</label>
+                    <input type="text" class="form-control" name="address" id="field_address"
+                           formControlName="address"/>
+                    <div *ngIf="editForm.get('address')!.invalid && (editForm.get('address')!.dirty || editForm.get('address')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('address')?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 50 }">
+                        This field cannot be longer than 50 characters.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jhApp.shop.province" for="field_province" [ngbTooltip]="'jhApp.shop.help.province' | translate">Province</label>
+                    <input type="text" class="form-control" name="province" id="field_province"
+                           formControlName="province"/>
+                    <div *ngIf="editForm.get('province')!.invalid && (editForm.get('province')!.dirty || editForm.get('province')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('province')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('province')?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 20 }">
+                        This field cannot be longer than 20 characters.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jhApp.shop.city" for="field_city" [ngbTooltip]="'jhApp.shop.help.city' | translate">City</label>
+                    <input type="text" class="form-control" name="city" id="field_city"
+                           formControlName="city"/>
+                    <div *ngIf="editForm.get('city')!.invalid && (editForm.get('city')!.dirty || editForm.get('city')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('city')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('city')?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 20 }">
+                        This field cannot be longer than 20 characters.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jhApp.shop.district" for="field_district" [ngbTooltip]="'jhApp.shop.help.district' | translate">District</label>
+                    <input type="text" class="form-control" name="district" id="field_district"
+                           formControlName="district"/>
+                    <div *ngIf="editForm.get('district')!.invalid && (editForm.get('district')!.dirty || editForm.get('district')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('district')?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 20 }">
+                        This field cannot be longer than 20 characters.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jhApp.shop.offsetType" for="field_offsetType" [ngbTooltip]="'jhApp.shop.help.offsetType' | translate">Offset Type</label>
+                    <select class="form-control" name="offsetType" formControlName="offsetType" id="field_offsetType">
+                        <option value="MARS">{{ 'jhApp.OffsetType.MARS' | translate }}</option>
+                        <option value="SOGOU">{{ 'jhApp.OffsetType.SOGOU' | translate }}</option>
+                        <option value="BAIDU">{{ 'jhApp.OffsetType.BAIDU' | translate }}</option>
+                        <option value="MAPBAR">{{ 'jhApp.OffsetType.MAPBAR' | translate }}</option>
+                        <option value="GPS">{{ 'jhApp.OffsetType.GPS' | translate }}</option>
+                        <option value="MERCATOR">{{ 'jhApp.OffsetType.MERCATOR' | translate }}</option>
+                    </select>
+                    <div *ngIf="editForm.get('offsetType')!.invalid && (editForm.get('offsetType')!.dirty || editForm.get('offsetType')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('offsetType')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jhApp.shop.longitude" for="field_longitude" [ngbTooltip]="'jhApp.shop.help.longitude' | translate">Longitude</label>
+                    <input type="number" class="form-control" name="longitude" id="field_longitude"
+                           formControlName="longitude"/>
+                    <div *ngIf="editForm.get('longitude')!.invalid && (editForm.get('longitude')!.dirty || editForm.get('longitude')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('longitude')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.get('longitude')?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jhApp.shop.latitude" for="field_latitude" [ngbTooltip]="'jhApp.shop.help.latitude' | translate">Latitude</label>
+                    <input type="number" class="form-control" name="latitude" id="field_latitude"
+                           formControlName="latitude"/>
+                    <div *ngIf="editForm.get('latitude')!.invalid && (editForm.get('latitude')!.dirty || editForm.get('latitude')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('latitude')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.get('latitude')?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+                    <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

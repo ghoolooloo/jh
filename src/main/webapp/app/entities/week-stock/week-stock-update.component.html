@@ -1,0 +1,90 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-week-stock-heading" jhiTranslate="jhApp.weekStock.home.createOrEditLabel">Create or edit a Week Stock</h2>
+
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+
+                <div class="form-group" [hidden]="!editForm.get('id')!.value">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jhApp.weekStock.shopSN" for="field_shopSN" [ngbTooltip]="'jhApp.weekStock.help.shopSN' | translate">Shop SN</label>
+                    <input type="text" class="form-control" name="shopSN" id="field_shopSN"
+                           formControlName="shopSN"/>
+                    <div *ngIf="editForm.get('shopSN')!.invalid && (editForm.get('shopSN')!.dirty || editForm.get('shopSN')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('shopSN')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('shopSN')?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 30 }">
+                        This field cannot be longer than 30 characters.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jhApp.weekStock.shopName" for="field_shopName" [ngbTooltip]="'jhApp.weekStock.help.shopName' | translate">Shop Name</label>
+                    <input type="text" class="form-control" name="shopName" id="field_shopName"
+                           formControlName="shopName"/>
+                    <div *ngIf="editForm.get('shopName')!.invalid && (editForm.get('shopName')!.dirty || editForm.get('shopName')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('shopName')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('shopName')?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 20 }">
+                        This field cannot be longer than 20 characters.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jhApp.weekStock.foodQuantity" for="field_foodQuantity" [ngbTooltip]="'jhApp.weekStock.help.foodQuantity' | translate">Food Quantity</label>
+                    <input type="number" class="form-control" name="foodQuantity" id="field_foodQuantity"
+                           formControlName="foodQuantity"/>
+                    <div *ngIf="editForm.get('foodQuantity')!.invalid && (editForm.get('foodQuantity')!.dirty || editForm.get('foodQuantity')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('foodQuantity')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('foodQuantity')?.errors?.min" jhiTranslate="entity.validation.min" [translateValues]="{ min: 0 }">
+                            This field should be at least 0.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('foodQuantity')?.errors?.max" jhiTranslate="entity.validation.max" [translateValues]="{ max: 99999 }">
+                            This field cannot be more than 99999.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.get('foodQuantity')?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jhApp.weekStock.weekMenu" for="field_weekMenu">Week Menu</label>
+                    <select class="form-control" id="field_weekMenu" name="weekMenu" formControlName="weekMenuId">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="weekMenuOption.id" *ngFor="let weekMenuOption of weekmenus; trackBy: trackById">{{ weekMenuOption.id }}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+                    <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

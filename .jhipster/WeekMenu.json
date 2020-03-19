@@ -1,0 +1,68 @@
+{
+    "name": "WeekMenu",
+    "fields": [
+        {
+            "fieldName": "week",
+            "fieldType": "Week",
+            "fieldValues": "SUNDAY,MONDAY,TUESDAY,WEDNESDAY,THURSDAY,FRIDAY,SATURDAY",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "sort",
+            "javadoc": "菜品在所在天的顺序",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required",
+                "min",
+                "max"
+            ],
+            "fieldValidateRulesMin": "0",
+            "fieldValidateRulesMax": "999999999"
+        },
+        {
+            "fieldName": "lastModifiedDate",
+            "fieldType": "Instant",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "lastModifiedBy",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "20"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "weekStock",
+            "otherEntityRelationshipName": "weekMenu",
+            "relationshipName": "weekStocks"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "food",
+            "otherEntityRelationshipName": "weekMenu",
+            "relationshipName": "food",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20200319143600",
+    "javadoc": "一周菜单，用于在公众号上展示的菜品列表\\n@author Jo",
+    "entityTableName": "week_menu",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "embedded": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

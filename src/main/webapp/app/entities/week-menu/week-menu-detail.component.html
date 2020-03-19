@@ -1,0 +1,48 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="weekMenu">
+            <h2><span jhiTranslate="jhApp.weekMenu.detail.title">Week Menu</span> {{ weekMenu.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="jhApp.weekMenu.week">Week</span></dt>
+                <dd>
+                    <span jhiTranslate="{{ 'jhApp.Week.' + weekMenu.week }}">{{ weekMenu.week }}</span>
+                </dd>
+                <dt><span jhiTranslate="jhApp.weekMenu.sort" [ngbTooltip]="'jhApp.weekMenu.help.sort' | translate">Sort</span></dt>
+                <dd>
+                    <span>{{ weekMenu.sort }}</span>
+                </dd>
+                <dt><span jhiTranslate="jhApp.weekMenu.lastModifiedDate">Last Modified Date</span></dt>
+                <dd>
+                    <span>{{ weekMenu.lastModifiedDate }}</span>
+                </dd>
+                <dt><span jhiTranslate="jhApp.weekMenu.lastModifiedBy">Last Modified By</span></dt>
+                <dd>
+                    <span>{{ weekMenu.lastModifiedBy }}</span>
+                </dd>
+                <dt><span jhiTranslate="jhApp.weekMenu.food">Food</span></dt>
+                <dd>
+                    <div *ngIf="weekMenu.foodId">
+                        <a [routerLink]="['/food', weekMenu.foodId, 'view']">{{ weekMenu.foodId }}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/week-menu', weekMenu.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

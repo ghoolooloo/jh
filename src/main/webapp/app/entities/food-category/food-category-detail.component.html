@@ -1,0 +1,58 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="foodCategory">
+            <h2><span jhiTranslate="jhApp.foodCategory.detail.title">Food Category</span> {{ foodCategory.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="jhApp.foodCategory.name">Name</span></dt>
+                <dd>
+                    <span>{{ foodCategory.name }}</span>
+                </dd>
+                <dt><span jhiTranslate="jhApp.foodCategory.sn" [ngbTooltip]="'jhApp.foodCategory.help.sn' | translate">Sn</span></dt>
+                <dd>
+                    <span>{{ foodCategory.sn }}</span>
+                </dd>
+                <dt><span jhiTranslate="jhApp.foodCategory.icon" [ngbTooltip]="'jhApp.foodCategory.help.icon' | translate">Icon</span></dt>
+                <dd>
+                    <span>{{ foodCategory.icon }}</span>
+                </dd>
+                <dt><span jhiTranslate="jhApp.foodCategory.sort" [ngbTooltip]="'jhApp.foodCategory.help.sort' | translate">Sort</span></dt>
+                <dd>
+                    <span>{{ foodCategory.sort }}</span>
+                </dd>
+                <dt><span jhiTranslate="jhApp.foodCategory.createdBy" [ngbTooltip]="'jhApp.foodCategory.help.createdBy' | translate">Created By</span></dt>
+                <dd>
+                    <span>{{ foodCategory.createdBy }}</span>
+                </dd>
+                <dt><span jhiTranslate="jhApp.foodCategory.createdDate">Created Date</span></dt>
+                <dd>
+                    <span>{{ foodCategory.createdDate }}</span>
+                </dd>
+                <dt><span jhiTranslate="jhApp.foodCategory.lastModifiedDate">Last Modified Date</span></dt>
+                <dd>
+                    <span>{{ foodCategory.lastModifiedDate }}</span>
+                </dd>
+                <dt><span jhiTranslate="jhApp.foodCategory.lastModifiedBy" [ngbTooltip]="'jhApp.foodCategory.help.lastModifiedBy' | translate">Last Modified By</span></dt>
+                <dd>
+                    <span>{{ foodCategory.lastModifiedBy }}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/food-category', foodCategory.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

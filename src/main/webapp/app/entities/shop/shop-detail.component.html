@@ -1,0 +1,66 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="shop">
+            <h2><span jhiTranslate="jhApp.shop.detail.title">Shop</span> {{ shop.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="jhApp.shop.name" [ngbTooltip]="'jhApp.shop.help.name' | translate">Name</span></dt>
+                <dd>
+                    <span>{{ shop.name }}</span>
+                </dd>
+                <dt><span jhiTranslate="jhApp.shop.sn" [ngbTooltip]="'jhApp.shop.help.sn' | translate">Sn</span></dt>
+                <dd>
+                    <span>{{ shop.sn }}</span>
+                </dd>
+                <dt><span jhiTranslate="jhApp.shop.tel" [ngbTooltip]="'jhApp.shop.help.tel' | translate">Tel</span></dt>
+                <dd>
+                    <span>{{ shop.tel }}</span>
+                </dd>
+                <dt><span jhiTranslate="jhApp.shop.address" [ngbTooltip]="'jhApp.shop.help.address' | translate">Address</span></dt>
+                <dd>
+                    <span>{{ shop.address }}</span>
+                </dd>
+                <dt><span jhiTranslate="jhApp.shop.province" [ngbTooltip]="'jhApp.shop.help.province' | translate">Province</span></dt>
+                <dd>
+                    <span>{{ shop.province }}</span>
+                </dd>
+                <dt><span jhiTranslate="jhApp.shop.city" [ngbTooltip]="'jhApp.shop.help.city' | translate">City</span></dt>
+                <dd>
+                    <span>{{ shop.city }}</span>
+                </dd>
+                <dt><span jhiTranslate="jhApp.shop.district" [ngbTooltip]="'jhApp.shop.help.district' | translate">District</span></dt>
+                <dd>
+                    <span>{{ shop.district }}</span>
+                </dd>
+                <dt><span jhiTranslate="jhApp.shop.offsetType" [ngbTooltip]="'jhApp.shop.help.offsetType' | translate">Offset Type</span></dt>
+                <dd>
+                    <span jhiTranslate="{{ 'jhApp.OffsetType.' + shop.offsetType }}">{{ shop.offsetType }}</span>
+                </dd>
+                <dt><span jhiTranslate="jhApp.shop.longitude" [ngbTooltip]="'jhApp.shop.help.longitude' | translate">Longitude</span></dt>
+                <dd>
+                    <span>{{ shop.longitude }}</span>
+                </dd>
+                <dt><span jhiTranslate="jhApp.shop.latitude" [ngbTooltip]="'jhApp.shop.help.latitude' | translate">Latitude</span></dt>
+                <dd>
+                    <span>{{ shop.latitude }}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/shop', shop.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

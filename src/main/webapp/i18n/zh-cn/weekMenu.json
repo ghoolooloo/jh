@@ -1,0 +1,30 @@
+{
+  "jhApp": {
+    "weekMenu": {
+      "home": {
+        "title": "Week Menus",
+        "createLabel": "创建新 Week Menu",
+        "createOrEditLabel": "创建或编辑 Week Menu",
+        "notFound": "No Week Menus found"
+      },
+      "created": "Week Menu {{ param }} 创建成功",
+      "updated": "Week Menu {{ param }} 更新成功",
+      "deleted": "Week Menu {{ param }} 删除成功",
+      "delete": {
+        "question": "你确定要删除 Week Menu {{ id }} 吗？"
+      },
+      "detail": {
+        "title": "Week Menu"
+      },
+      "week": "Week",
+      "sort": "Sort",
+      "lastModifiedDate": "Last Modified Date",
+      "lastModifiedBy": "Last Modified By",
+      "weekStocks": "Week Stocks",
+      "food": "Food",
+      "help": {
+        "sort": "菜品在所在天的顺序"
+      }
+    }
+  }
+}

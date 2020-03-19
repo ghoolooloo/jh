@@ -1,0 +1,30 @@
+{
+  "jhApp": {
+    "weekStock": {
+      "home": {
+        "title": "Week Stocks",
+        "createLabel": "创建新 Week Stock",
+        "createOrEditLabel": "创建或编辑 Week Stock",
+        "notFound": "No Week Stocks found"
+      },
+      "created": "Week Stock {{ param }} 创建成功",
+      "updated": "Week Stock {{ param }} 更新成功",
+      "deleted": "Week Stock {{ param }} 删除成功",
+      "delete": {
+        "question": "你确定要删除 Week Stock {{ id }} 吗？"
+      },
+      "detail": {
+        "title": "Week Stock"
+      },
+      "shopSN": "Shop SN",
+      "shopName": "Shop Name",
+      "foodQuantity": "Food Quantity",
+      "weekMenu": "Week Menu",
+      "help": {
+        "shopSN": "门店编号",
+        "shopName": "门店名称",
+        "foodQuantity": "菜品数量。售出超过这个数量时，将显示“已售完”（不是下架！）"
+      }
+    }
+  }
+}

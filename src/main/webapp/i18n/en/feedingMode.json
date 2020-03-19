@@ -1,0 +1,9 @@
+{
+  "jhApp": {
+    "FeedingMode": {
+      "null": "",
+      "DINNER": "DINNER",
+      "DESSERT": "DESSERT"
+    }
+  }
+}

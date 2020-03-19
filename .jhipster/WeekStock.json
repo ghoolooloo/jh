@@ -1,0 +1,58 @@
+{
+    "name": "WeekStock",
+    "fields": [
+        {
+            "fieldName": "shopSN",
+            "javadoc": "门店编号",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "30"
+        },
+        {
+            "fieldName": "shopName",
+            "javadoc": "门店名称",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "20"
+        },
+        {
+            "fieldName": "foodQuantity",
+            "javadoc": "菜品数量。售出超过这个数量时，将显示“已售完”（不是下架！）",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required",
+                "min",
+                "max"
+            ],
+            "fieldValidateRulesMin": "0",
+            "fieldValidateRulesMax": "99999"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "weekMenu",
+            "otherEntityRelationshipName": "weekStocks",
+            "relationshipName": "weekMenu",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20200319143700",
+    "javadoc": "门店周库存\\n@author Jo",
+    "entityTableName": "week_stock",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "embedded": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

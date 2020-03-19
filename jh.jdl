@@ -1,0 +1,122 @@
+SORT_MIN = 0
+SORT_MAX = 999999999
+USER_MAXLENGTH = 20
+URL_MAXLENGTH = 200
+AMOUNT_MAX = 999999
+DESC_MAXLENGTH = 300
+TEL_MAXLENGTH = 20
+ADDRESS_MAXLENGTH = 50
+AREA_MAXLENGTH = 20
+
+/**
+ * 菜品分类
+ * @author Jo
+ */
+entity FoodCategory {
+  name String required maxlength(10)
+  sn String required unique maxlength(10) /** 编号 */
+  icon String maxlength(30) /** 图标 */
+  sort Integer required min(SORT_MIN) max(SORT_MAX) /** 序号 */
+  createdBy String required maxlength(USER_MAXLENGTH) /** 创建者登录账号 */
+  createdDate Instant required
+  lastModifiedDate Instant
+  lastModifiedBy String maxlength(USER_MAXLENGTH) /** 最后修改者登录账号 */
+}
+
+/**
+ * 菜品
+ * @author Jo
+ */
+entity Food {
+  name String required maxlength(20)
+  sn String required unique maxlength(10) /** 编号 */
+  thumbnail String maxlength(URL_MAXLENGTH) /** 缩略图 */
+  picture String maxlength(URL_MAXLENGTH) /** 大图 */
+  price Integer required min(1) max(AMOUNT_MAX) /** 单价（单位：分） */
+  packingFee Integer min(0) max(AMOUNT_MAX) /** 包装费（单位：分） */
+  desc String maxlength(DESC_MAXLENGTH) /** 描述 */
+  sort Integer required min(SORT_MIN) max(SORT_MAX) /** 序号 */
+  feedingMode FeedingMode required  /** 供餐方式 */
+  createdBy String required maxlength(USER_MAXLENGTH)
+  createdDate Instant required
+  lastModifiedDate Instant
+  lastModifiedBy String maxlength(USER_MAXLENGTH)
+}
+
+/**
+ * 供餐方式
+ * DINNER：正餐，DESSERT：点心
+ * @author Jo
+ */
+enum FeedingMode {
+  DINNER, DESSERT
+}
+
+/**
+ * 一周菜单，用于在公众号上展示的菜品列表
+ * @author Jo
+ */
+entity WeekMenu {
+  week Week required
+  sort Integer required min(SORT_MIN) max(SORT_MAX) /** 菜品在所在天的顺序 */
+  lastModifiedDate Instant required
+  lastModifiedBy String required maxlength(USER_MAXLENGTH)
+}
+
+/**
+ * 门店周库存
+ * @author Jo
+ */
+entity WeekStock {
+  shopSN String required maxlength(30) /** 门店编号 */
+  shopName String required maxlength(20) /** 门店名称 */
+  foodQuantity Integer required min(0) max(99999) /** 菜品数量。售出超过这个数量时，将显示“已售完”（不是下架！） */
+}
+
+/**
+ * 星期
+ * @author Jo
+ */
+enum Week {
+  SUNDAY, MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY
+}
+
+/**
+ * 门店
+ * @author Jo
+ */
+entity Shop {
+  name String required maxlength(20) /** 门店名称 */
+  sn String required unique maxlength(30) /** 门店编号，即微信门店的poi_id */
+  tel String maxlength(TEL_MAXLENGTH) /** 联系电话 */
+  address String maxlength(ADDRESS_MAXLENGTH) /** 详细地址（不含省市信息） */
+  province String required maxlength(AREA_MAXLENGTH) /** 省、直辖市、自治区 */
+  city String required maxlength(AREA_MAXLENGTH) /** 城市 */
+  district String maxlength(AREA_MAXLENGTH) /** 地区 */
+  offsetType OffsetType required /** 坐标类型。由于门店来自微信，因此这里坐标类型固定为 MARS */
+  longitude Double required /** 经度 */
+  latitude Double required  /** 纬度 */
+}
+
+/**
+ * 坐标类型
+ * MARS：火星坐标（腾讯搜搜地图、高德地图、阿里云地图），SOGOU：搜狗坐标，BAIDU：百度坐标，MAPBAR：图吧坐标，GPS，MERCATOR：墨卡托坐标
+ * @author Jo
+ */
+enum OffsetType {
+  MARS, SOGOU, BAIDU, MAPBAR, GPS, MERCATOR
+}
+
+
+relationship ManyToOne {
+  Food{category} to FoodCategory
+  WeekMenu{food} to Food
+}
+
+relationship OneToMany {
+  WeekMenu{weekStocks} to WeekStock
+}
+
+paginate * with pagination except FoodCategory, WeekMenu, Shop
+service * with serviceClass
+dto * with mapstruct

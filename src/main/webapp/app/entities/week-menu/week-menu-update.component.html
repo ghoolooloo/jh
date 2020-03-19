@@ -1,0 +1,110 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-week-menu-heading" jhiTranslate="jhApp.weekMenu.home.createOrEditLabel">Create or edit a Week Menu</h2>
+
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+
+                <div class="form-group" [hidden]="!editForm.get('id')!.value">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jhApp.weekMenu.week" for="field_week">Week</label>
+                    <select class="form-control" name="week" formControlName="week" id="field_week">
+                        <option value="SUNDAY">{{ 'jhApp.Week.SUNDAY' | translate }}</option>
+                        <option value="MONDAY">{{ 'jhApp.Week.MONDAY' | translate }}</option>
+                        <option value="TUESDAY">{{ 'jhApp.Week.TUESDAY' | translate }}</option>
+                        <option value="WEDNESDAY">{{ 'jhApp.Week.WEDNESDAY' | translate }}</option>
+                        <option value="THURSDAY">{{ 'jhApp.Week.THURSDAY' | translate }}</option>
+                        <option value="FRIDAY">{{ 'jhApp.Week.FRIDAY' | translate }}</option>
+                        <option value="SATURDAY">{{ 'jhApp.Week.SATURDAY' | translate }}</option>
+                    </select>
+                    <div *ngIf="editForm.get('week')!.invalid && (editForm.get('week')!.dirty || editForm.get('week')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('week')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jhApp.weekMenu.sort" for="field_sort" [ngbTooltip]="'jhApp.weekMenu.help.sort' | translate">Sort</label>
+                    <input type="number" class="form-control" name="sort" id="field_sort"
+                           formControlName="sort"/>
+                    <div *ngIf="editForm.get('sort')!.invalid && (editForm.get('sort')!.dirty || editForm.get('sort')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('sort')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('sort')?.errors?.min" jhiTranslate="entity.validation.min" [translateValues]="{ min: 0 }">
+                            This field should be at least 0.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('sort')?.errors?.max" jhiTranslate="entity.validation.max" [translateValues]="{ max: 999999999 }">
+                            This field cannot be more than 999999999.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.get('sort')?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jhApp.weekMenu.lastModifiedDate" for="field_lastModifiedDate">Last Modified Date</label>
+                    <div class="d-flex">
+                        <input id="field_lastModifiedDate" type="datetime-local" class="form-control" name="lastModifiedDate" formControlName="lastModifiedDate" placeholder="YYYY-MM-DD HH:mm"/>
+                    </div>
+                    <div *ngIf="editForm.get('lastModifiedDate')!.invalid && (editForm.get('lastModifiedDate')!.dirty || editForm.get('lastModifiedDate')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('lastModifiedDate')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.get('lastModifiedDate')?.errors?.ZonedDateTimelocal" jhiTranslate="entity.validation.ZonedDateTimelocal">
+                            This field should be a date and time.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jhApp.weekMenu.lastModifiedBy" for="field_lastModifiedBy">Last Modified By</label>
+                    <input type="text" class="form-control" name="lastModifiedBy" id="field_lastModifiedBy"
+                           formControlName="lastModifiedBy"/>
+                    <div *ngIf="editForm.get('lastModifiedBy')!.invalid && (editForm.get('lastModifiedBy')!.dirty || editForm.get('lastModifiedBy')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('lastModifiedBy')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('lastModifiedBy')?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 20 }">
+                        This field cannot be longer than 20 characters.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jhApp.weekMenu.food" for="field_food">Food</label>
+                    <select class="form-control" id="field_food" name="food" formControlName="foodId">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="foodOption.id" *ngFor="let foodOption of foods; trackBy: trackById">{{ foodOption.id }}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+                    <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

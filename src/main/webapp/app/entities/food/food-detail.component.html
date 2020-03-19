@@ -1,0 +1,84 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="food">
+            <h2><span jhiTranslate="jhApp.food.detail.title">Food</span> {{ food.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="jhApp.food.name">Name</span></dt>
+                <dd>
+                    <span>{{ food.name }}</span>
+                </dd>
+                <dt><span jhiTranslate="jhApp.food.sn" [ngbTooltip]="'jhApp.food.help.sn' | translate">Sn</span></dt>
+                <dd>
+                    <span>{{ food.sn }}</span>
+                </dd>
+                <dt><span jhiTranslate="jhApp.food.thumbnail" [ngbTooltip]="'jhApp.food.help.thumbnail' | translate">Thumbnail</span></dt>
+                <dd>
+                    <span>{{ food.thumbnail }}</span>
+                </dd>
+                <dt><span jhiTranslate="jhApp.food.picture" [ngbTooltip]="'jhApp.food.help.picture' | translate">Picture</span></dt>
+                <dd>
+                    <span>{{ food.picture }}</span>
+                </dd>
+                <dt><span jhiTranslate="jhApp.food.price" [ngbTooltip]="'jhApp.food.help.price' | translate">Price</span></dt>
+                <dd>
+                    <span>{{ food.price }}</span>
+                </dd>
+                <dt><span jhiTranslate="jhApp.food.packingFee" [ngbTooltip]="'jhApp.food.help.packingFee' | translate">Packing Fee</span></dt>
+                <dd>
+                    <span>{{ food.packingFee }}</span>
+                </dd>
+                <dt><span jhiTranslate="jhApp.food.desc" [ngbTooltip]="'jhApp.food.help.desc' | translate">Desc</span></dt>
+                <dd>
+                    <span>{{ food.desc }}</span>
+                </dd>
+                <dt><span jhiTranslate="jhApp.food.sort" [ngbTooltip]="'jhApp.food.help.sort' | translate">Sort</span></dt>
+                <dd>
+                    <span>{{ food.sort }}</span>
+                </dd>
+                <dt><span jhiTranslate="jhApp.food.feedingMode" [ngbTooltip]="'jhApp.food.help.feedingMode' | translate">Feeding Mode</span></dt>
+                <dd>
+                    <span jhiTranslate="{{ 'jhApp.FeedingMode.' + food.feedingMode }}">{{ food.feedingMode }}</span>
+                </dd>
+                <dt><span jhiTranslate="jhApp.food.createdBy">Created By</span></dt>
+                <dd>
+                    <span>{{ food.createdBy }}</span>
+                </dd>
+                <dt><span jhiTranslate="jhApp.food.createdDate">Created Date</span></dt>
+                <dd>
+                    <span>{{ food.createdDate }}</span>
+                </dd>
+                <dt><span jhiTranslate="jhApp.food.lastModifiedDate">Last Modified Date</span></dt>
+                <dd>
+                    <span>{{ food.lastModifiedDate }}</span>
+                </dd>
+                <dt><span jhiTranslate="jhApp.food.lastModifiedBy">Last Modified By</span></dt>
+                <dd>
+                    <span>{{ food.lastModifiedBy }}</span>
+                </dd>
+                <dt><span jhiTranslate="jhApp.food.category">Category</span></dt>
+                <dd>
+                    <div *ngIf="food.categoryId">
+                        <a [routerLink]="['/food-category', food.categoryId, 'view']">{{ food.categoryId }}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/food', food.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,45 @@
+{
+  "jhApp": {
+    "food": {
+      "home": {
+        "title": "Foods",
+        "createLabel": "Create a new Food",
+        "createOrEditLabel": "Create or edit a Food",
+        "notFound": "No Foods found"
+      },
+      "created": "A new Food is created with identifier {{ param }}",
+      "updated": "A Food is updated with identifier {{ param }}",
+      "deleted": "A Food is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Food {{ id }}?"
+      },
+      "detail": {
+        "title": "Food"
+      },
+      "name": "Name",
+      "sn": "Sn",
+      "thumbnail": "Thumbnail",
+      "picture": "Picture",
+      "price": "Price",
+      "packingFee": "Packing Fee",
+      "desc": "Desc",
+      "sort": "Sort",
+      "feedingMode": "Feeding Mode",
+      "createdBy": "Created By",
+      "createdDate": "Created Date",
+      "lastModifiedDate": "Last Modified Date",
+      "lastModifiedBy": "Last Modified By",
+      "category": "Category",
+      "help": {
+        "sn": "编号",
+        "thumbnail": "缩略图",
+        "picture": "大图",
+        "price": "单价（单位：分）",
+        "packingFee": "包装费（单位：分）",
+        "desc": "描述",
+        "sort": "序号",
+        "feedingMode": "供餐方式"
+      }
+    }
+  }
+}
