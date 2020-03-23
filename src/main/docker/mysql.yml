@@ -2,8 +2,8 @@ version: '2'
 services:
   jh-mysql:
     image: mysql:8.0.19
-    # volumes:
-    #     - ~/volumes/jhipster/jh/mysql/:/var/lib/mysql/
+    volumes:
+      - ~/demo/volumes/jh/mysql/:/var/lib/mysql/
     environment:
       - MYSQL_USER=root
       - MYSQL_ALLOW_EMPTY_PASSWORD=yes
