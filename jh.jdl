@@ -7,6 +7,7 @@ DESC_MAXLENGTH = 300
 TEL_MAXLENGTH = 20
 ADDRESS_MAXLENGTH = 50
 AREA_MAXLENGTH = 20
+TIME_MAXLENGTH = 8
 
 /**
  * 菜品分类
@@ -96,6 +97,18 @@ entity Shop {
   offsetType OffsetType required /** 坐标类型。由于门店来自微信，因此这里坐标类型固定为 MARS */
   longitude Double required /** 经度 */
   latitude Double required  /** 纬度 */
+  shopOpen String maxlength(TIME_MAXLENGTH) /** 开始营业时间。格式：05:00、19:00 */
+  shopClose String maxlength(TIME_MAXLENGTH) /** 结束营业时间。格式：05:00、19:00 */
+  maxDeliveryDistance Integer min(0) max(50) /** 最大配送距离（相对于最近门店），单位：公里 */
+  minDeliveryAmount Integer min(0) max(AMOUNT_MAX)  /** 起送金额（单位：分）。是限制订单的priceTotal字段的最小值，低于这个值的订单不外送。自助订单不受此限制！ */
+  lunchServeStartingAt String maxlength(TIME_MAXLENGTH)  /** 正餐午餐供餐起始时间。格式：05:00、19:00 */
+  lunchServeEndAt String maxlength(TIME_MAXLENGTH)  /** 正餐午餐供餐结束时间。格式：05:00、19:00 */
+  supperServeStartingAt String maxlength(TIME_MAXLENGTH)  /** 正餐晚餐配供餐始时间。格式：05:00、19:00 */
+  supperServeEndAt String maxlength(TIME_MAXLENGTH)  /** 正餐晚餐供餐结束时间。格式：05:00、19:00 */
+  createdBy String required maxlength(USER_MAXLENGTH)
+  createdDate Instant required
+  lastModifiedDate Instant
+  lastModifiedBy String maxlength(USER_MAXLENGTH)
 }
 
 /**
