@@ -1,4 +1,4 @@
-import { browser, ExpectedConditions as ec, promise } from 'protractor';
+import { browser, ExpectedConditions as ec, protractor, promise } from 'protractor';
 import { NavBarPage, SignInPage } from '../../page-objects/jhi-page-objects';
 
 import { ShopComponentsPage, ShopDeleteDialog, ShopUpdatePage } from './shop.page-object';
@@ -50,7 +50,19 @@ describe('Shop e2e test', () => {
       shopUpdatePage.setDistrictInput('district'),
       shopUpdatePage.offsetTypeSelectLastOption(),
       shopUpdatePage.setLongitudeInput('5'),
-      shopUpdatePage.setLatitudeInput('5')
+      shopUpdatePage.setLatitudeInput('5'),
+      shopUpdatePage.setShopOpenInput('shopOpen'),
+      shopUpdatePage.setShopCloseInput('shopClose'),
+      shopUpdatePage.setMaxDeliveryDistanceInput('5'),
+      shopUpdatePage.setMinDeliveryAmountInput('5'),
+      shopUpdatePage.setLunchServeStartingAtInput('lunchServeStartingAt'),
+      shopUpdatePage.setLunchServeEndAtInput('lunchServeEndAt'),
+      shopUpdatePage.setSupperServeStartingAtInput('supperServeStartingAt'),
+      shopUpdatePage.setSupperServeEndAtInput('supperServeEndAt'),
+      shopUpdatePage.setCreatedByInput('createdBy'),
+      shopUpdatePage.setCreatedDateInput('01/01/2001' + protractor.Key.TAB + '02:30AM'),
+      shopUpdatePage.setLastModifiedDateInput('01/01/2001' + protractor.Key.TAB + '02:30AM'),
+      shopUpdatePage.setLastModifiedByInput('lastModifiedBy')
     ]);
 
     expect(await shopUpdatePage.getNameInput()).to.eq('name', 'Expected Name value to be equals to name');
@@ -62,6 +74,39 @@ describe('Shop e2e test', () => {
     expect(await shopUpdatePage.getDistrictInput()).to.eq('district', 'Expected District value to be equals to district');
     expect(await shopUpdatePage.getLongitudeInput()).to.eq('5', 'Expected longitude value to be equals to 5');
     expect(await shopUpdatePage.getLatitudeInput()).to.eq('5', 'Expected latitude value to be equals to 5');
+    expect(await shopUpdatePage.getShopOpenInput()).to.eq('shopOpen', 'Expected ShopOpen value to be equals to shopOpen');
+    expect(await shopUpdatePage.getShopCloseInput()).to.eq('shopClose', 'Expected ShopClose value to be equals to shopClose');
+    expect(await shopUpdatePage.getMaxDeliveryDistanceInput()).to.eq('5', 'Expected maxDeliveryDistance value to be equals to 5');
+    expect(await shopUpdatePage.getMinDeliveryAmountInput()).to.eq('5', 'Expected minDeliveryAmount value to be equals to 5');
+    expect(await shopUpdatePage.getLunchServeStartingAtInput()).to.eq(
+      'lunchServeStartingAt',
+      'Expected LunchServeStartingAt value to be equals to lunchServeStartingAt'
+    );
+    expect(await shopUpdatePage.getLunchServeEndAtInput()).to.eq(
+      'lunchServeEndAt',
+      'Expected LunchServeEndAt value to be equals to lunchServeEndAt'
+    );
+    expect(await shopUpdatePage.getSupperServeStartingAtInput()).to.eq(
+      'supperServeStartingAt',
+      'Expected SupperServeStartingAt value to be equals to supperServeStartingAt'
+    );
+    expect(await shopUpdatePage.getSupperServeEndAtInput()).to.eq(
+      'supperServeEndAt',
+      'Expected SupperServeEndAt value to be equals to supperServeEndAt'
+    );
+    expect(await shopUpdatePage.getCreatedByInput()).to.eq('createdBy', 'Expected CreatedBy value to be equals to createdBy');
+    expect(await shopUpdatePage.getCreatedDateInput()).to.contain(
+      '2001-01-01T02:30',
+      'Expected createdDate value to be equals to 2000-12-31'
+    );
+    expect(await shopUpdatePage.getLastModifiedDateInput()).to.contain(
+      '2001-01-01T02:30',
+      'Expected lastModifiedDate value to be equals to 2000-12-31'
+    );
+    expect(await shopUpdatePage.getLastModifiedByInput()).to.eq(
+      'lastModifiedBy',
+      'Expected LastModifiedBy value to be equals to lastModifiedBy'
+    );
 
     await shopUpdatePage.save();
     expect(await shopUpdatePage.getSaveButton().isPresent(), 'Expected save button disappear').to.be.false;

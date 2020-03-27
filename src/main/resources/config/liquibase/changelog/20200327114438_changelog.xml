@@ -1,0 +1,166 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" 
+    xmlns:pro="http://www.liquibase.org/xml/ns/pro" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-3.8.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <changeSet author="i (generated)" id="1585309572830-33">
+        <addColumn tableName="shop">
+            <column name="created_by" type="varchar(20)" value="admin">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet author="i (generated)" id="1585309572830-34">
+        <addColumn tableName="shop">
+            <column name="created_date" type="timestamp" valueDate="2020-03-27T23:27:08">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet author="i (generated)" id="1585309572830-35">
+        <addColumn tableName="shop">
+            <column name="last_modified_by" type="varchar(20)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="i (generated)" id="1585309572830-36">
+        <addColumn tableName="shop">
+            <column name="last_modified_date" type="datetime"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="i (generated)" id="1585309572830-37">
+        <addColumn tableName="shop">
+            <column name="lunch_serve_end_at" type="varchar(8)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="i (generated)" id="1585309572830-38">
+        <addColumn tableName="shop">
+            <column name="lunch_serve_starting_at" type="varchar(8)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="i (generated)" id="1585309572830-39">
+        <addColumn tableName="shop">
+            <column name="max_delivery_distance" type="integer"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="i (generated)" id="1585309572830-40">
+        <addColumn tableName="shop">
+            <column name="min_delivery_amount" type="integer"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="i (generated)" id="1585309572830-41">
+        <addColumn tableName="shop">
+            <column name="shop_close" type="varchar(8)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="i (generated)" id="1585309572830-42">
+        <addColumn tableName="shop">
+            <column name="shop_open" type="varchar(8)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="i (generated)" id="1585309572830-43">
+        <addColumn tableName="shop">
+            <column name="supper_serve_end_at" type="varchar(8)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="i (generated)" id="1585309572830-44">
+        <addColumn tableName="shop">
+            <column name="supper_serve_starting_at" type="varchar(8)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="i (generated)" id="1585309572830-1">
+        <setTableRemarks tableName="food"/>
+    </changeSet>
+    <changeSet author="i (generated)" id="1585309572830-2">
+        <setTableRemarks tableName="food_category"/>
+    </changeSet>
+    <changeSet author="i (generated)" id="1585309572830-3">
+        <setTableRemarks tableName="shop"/>
+    </changeSet>
+    <changeSet author="i (generated)" id="1585309572830-4">
+        <setTableRemarks tableName="week_menu"/>
+    </changeSet>
+    <changeSet author="i (generated)" id="1585309572830-5">
+        <setTableRemarks tableName="week_stock"/>
+    </changeSet>
+    <changeSet author="i (generated)" id="1585309572830-6">
+        <setColumnRemarks columnName="address" tableName="shop"/>
+    </changeSet>
+    <changeSet author="i (generated)" id="1585309572830-7">
+        <setColumnRemarks columnName="city" tableName="shop"/>
+    </changeSet>
+    <changeSet author="i (generated)" id="1585309572830-8">
+        <setColumnRemarks columnName="created_by" tableName="food_category"/>
+    </changeSet>
+    <changeSet author="i (generated)" id="1585309572830-9">
+        <setColumnRemarks columnName="district" tableName="shop"/>
+    </changeSet>
+    <changeSet author="i (generated)" id="1585309572830-10">
+        <setColumnRemarks columnName="feeding_mode" tableName="food"/>
+    </changeSet>
+    <changeSet author="i (generated)" id="1585309572830-11">
+        <setColumnRemarks columnName="food_quantity" tableName="week_stock"/>
+    </changeSet>
+    <changeSet author="i (generated)" id="1585309572830-12">
+        <setColumnRemarks columnName="icon" tableName="food_category"/>
+    </changeSet>
+    <changeSet author="i (generated)" id="1585309572830-13">
+        <setColumnRemarks columnName="jhi_desc" tableName="food"/>
+    </changeSet>
+    <changeSet author="i (generated)" id="1585309572830-14">
+        <setColumnRemarks columnName="last_modified_by" tableName="food_category"/>
+    </changeSet>
+    <changeSet author="i (generated)" id="1585309572830-15">
+        <setColumnRemarks columnName="latitude" tableName="shop"/>
+    </changeSet>
+    <changeSet author="i (generated)" id="1585309572830-16">
+        <setColumnRemarks columnName="longitude" tableName="shop"/>
+    </changeSet>
+    <changeSet author="i (generated)" id="1585309572830-17">
+        <setColumnRemarks columnName="name" tableName="shop"/>
+    </changeSet>
+    <changeSet author="i (generated)" id="1585309572830-18">
+        <setColumnRemarks columnName="offset_type" tableName="shop"/>
+    </changeSet>
+    <changeSet author="i (generated)" id="1585309572830-19">
+        <setColumnRemarks columnName="packing_fee" tableName="food"/>
+    </changeSet>
+    <changeSet author="i (generated)" id="1585309572830-20">
+        <setColumnRemarks columnName="picture" tableName="food"/>
+    </changeSet>
+    <changeSet author="i (generated)" id="1585309572830-21">
+        <setColumnRemarks columnName="price" tableName="food"/>
+    </changeSet>
+    <changeSet author="i (generated)" id="1585309572830-22">
+        <setColumnRemarks columnName="province" tableName="shop"/>
+    </changeSet>
+    <changeSet author="i (generated)" id="1585309572830-23">
+        <setColumnRemarks columnName="shop_name" tableName="week_stock"/>
+    </changeSet>
+    <changeSet author="i (generated)" id="1585309572830-24">
+        <setColumnRemarks columnName="shop_sn" tableName="week_stock"/>
+    </changeSet>
+    <changeSet author="i (generated)" id="1585309572830-25">
+        <setColumnRemarks columnName="sn" tableName="food"/>
+    </changeSet>
+    <changeSet author="i (generated)" id="1585309572830-26">
+        <setColumnRemarks columnName="sn" tableName="food_category"/>
+    </changeSet>
+    <changeSet author="i (generated)" id="1585309572830-27">
+        <setColumnRemarks columnName="sn" tableName="shop"/>
+    </changeSet>
+    <changeSet author="i (generated)" id="1585309572830-28">
+        <setColumnRemarks columnName="sort" tableName="food"/>
+    </changeSet>
+    <changeSet author="i (generated)" id="1585309572830-29">
+        <setColumnRemarks columnName="sort" tableName="food_category"/>
+    </changeSet>
+    <changeSet author="i (generated)" id="1585309572830-30">
+        <setColumnRemarks columnName="sort" tableName="week_menu"/>
+    </changeSet>
+    <changeSet author="i (generated)" id="1585309572830-31">
+        <setColumnRemarks columnName="tel" tableName="shop"/>
+    </changeSet>
+    <changeSet author="i (generated)" id="1585309572830-32">
+        <setColumnRemarks columnName="thumbnail" tableName="food"/>
+    </changeSet>
+</databaseChangeLog>

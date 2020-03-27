@@ -39,6 +39,18 @@ export class ShopUpdatePage {
   offsetTypeSelect = element(by.id('field_offsetType'));
   longitudeInput = element(by.id('field_longitude'));
   latitudeInput = element(by.id('field_latitude'));
+  shopOpenInput = element(by.id('field_shopOpen'));
+  shopCloseInput = element(by.id('field_shopClose'));
+  maxDeliveryDistanceInput = element(by.id('field_maxDeliveryDistance'));
+  minDeliveryAmountInput = element(by.id('field_minDeliveryAmount'));
+  lunchServeStartingAtInput = element(by.id('field_lunchServeStartingAt'));
+  lunchServeEndAtInput = element(by.id('field_lunchServeEndAt'));
+  supperServeStartingAtInput = element(by.id('field_supperServeStartingAt'));
+  supperServeEndAtInput = element(by.id('field_supperServeEndAt'));
+  createdByInput = element(by.id('field_createdBy'));
+  createdDateInput = element(by.id('field_createdDate'));
+  lastModifiedDateInput = element(by.id('field_lastModifiedDate'));
+  lastModifiedByInput = element(by.id('field_lastModifiedBy'));
 
   async getPageTitle(): Promise<string> {
     return this.pageTitle.getAttribute('jhiTranslate');
@@ -129,6 +141,102 @@ export class ShopUpdatePage {
 
   async getLatitudeInput(): Promise<string> {
     return await this.latitudeInput.getAttribute('value');
+  }
+
+  async setShopOpenInput(shopOpen: string): Promise<void> {
+    await this.shopOpenInput.sendKeys(shopOpen);
+  }
+
+  async getShopOpenInput(): Promise<string> {
+    return await this.shopOpenInput.getAttribute('value');
+  }
+
+  async setShopCloseInput(shopClose: string): Promise<void> {
+    await this.shopCloseInput.sendKeys(shopClose);
+  }
+
+  async getShopCloseInput(): Promise<string> {
+    return await this.shopCloseInput.getAttribute('value');
+  }
+
+  async setMaxDeliveryDistanceInput(maxDeliveryDistance: string): Promise<void> {
+    await this.maxDeliveryDistanceInput.sendKeys(maxDeliveryDistance);
+  }
+
+  async getMaxDeliveryDistanceInput(): Promise<string> {
+    return await this.maxDeliveryDistanceInput.getAttribute('value');
+  }
+
+  async setMinDeliveryAmountInput(minDeliveryAmount: string): Promise<void> {
+    await this.minDeliveryAmountInput.sendKeys(minDeliveryAmount);
+  }
+
+  async getMinDeliveryAmountInput(): Promise<string> {
+    return await this.minDeliveryAmountInput.getAttribute('value');
+  }
+
+  async setLunchServeStartingAtInput(lunchServeStartingAt: string): Promise<void> {
+    await this.lunchServeStartingAtInput.sendKeys(lunchServeStartingAt);
+  }
+
+  async getLunchServeStartingAtInput(): Promise<string> {
+    return await this.lunchServeStartingAtInput.getAttribute('value');
+  }
+
+  async setLunchServeEndAtInput(lunchServeEndAt: string): Promise<void> {
+    await this.lunchServeEndAtInput.sendKeys(lunchServeEndAt);
+  }
+
+  async getLunchServeEndAtInput(): Promise<string> {
+    return await this.lunchServeEndAtInput.getAttribute('value');
+  }
+
+  async setSupperServeStartingAtInput(supperServeStartingAt: string): Promise<void> {
+    await this.supperServeStartingAtInput.sendKeys(supperServeStartingAt);
+  }
+
+  async getSupperServeStartingAtInput(): Promise<string> {
+    return await this.supperServeStartingAtInput.getAttribute('value');
+  }
+
+  async setSupperServeEndAtInput(supperServeEndAt: string): Promise<void> {
+    await this.supperServeEndAtInput.sendKeys(supperServeEndAt);
+  }
+
+  async getSupperServeEndAtInput(): Promise<string> {
+    return await this.supperServeEndAtInput.getAttribute('value');
+  }
+
+  async setCreatedByInput(createdBy: string): Promise<void> {
+    await this.createdByInput.sendKeys(createdBy);
+  }
+
+  async getCreatedByInput(): Promise<string> {
+    return await this.createdByInput.getAttribute('value');
+  }
+
+  async setCreatedDateInput(createdDate: string): Promise<void> {
+    await this.createdDateInput.sendKeys(createdDate);
+  }
+
+  async getCreatedDateInput(): Promise<string> {
+    return await this.createdDateInput.getAttribute('value');
+  }
+
+  async setLastModifiedDateInput(lastModifiedDate: string): Promise<void> {
+    await this.lastModifiedDateInput.sendKeys(lastModifiedDate);
+  }
+
+  async getLastModifiedDateInput(): Promise<string> {
+    return await this.lastModifiedDateInput.getAttribute('value');
+  }
+
+  async setLastModifiedByInput(lastModifiedBy: string): Promise<void> {
+    await this.lastModifiedByInput.sendKeys(lastModifiedBy);
+  }
+
+  async getLastModifiedByInput(): Promise<string> {
+    return await this.lastModifiedByInput.getAttribute('value');
   }
 
   async save(): Promise<void> {

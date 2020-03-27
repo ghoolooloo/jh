@@ -23,5 +23,6 @@
     <include file="config/liquibase/changelog/20200319143500_added_entity_constraints_Food.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20200319143600_added_entity_constraints_WeekMenu.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20200319143700_added_entity_constraints_WeekStock.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20200327114438_changelog.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
 </databaseChangeLog>

@@ -1,3 +1,4 @@
+import { Moment } from 'moment';
 import { OffsetType } from 'app/shared/model/enumerations/offset-type.model';
 
 export interface IShop {
@@ -12,6 +13,18 @@ export interface IShop {
   offsetType?: OffsetType;
   longitude?: number;
   latitude?: number;
+  shopOpen?: string;
+  shopClose?: string;
+  maxDeliveryDistance?: number;
+  minDeliveryAmount?: number;
+  lunchServeStartingAt?: string;
+  lunchServeEndAt?: string;
+  supperServeStartingAt?: string;
+  supperServeEndAt?: string;
+  createdBy?: string;
+  createdDate?: Moment;
+  lastModifiedDate?: Moment;
+  lastModifiedBy?: string;
 }
 
 export class Shop implements IShop {
@@ -26,6 +39,18 @@ export class Shop implements IShop {
     public district?: string,
     public offsetType?: OffsetType,
     public longitude?: number,
-    public latitude?: number
+    public latitude?: number,
+    public shopOpen?: string,
+    public shopClose?: string,
+    public maxDeliveryDistance?: number,
+    public minDeliveryAmount?: number,
+    public lunchServeStartingAt?: string,
+    public lunchServeEndAt?: string,
+    public supperServeStartingAt?: string,
+    public supperServeEndAt?: string,
+    public createdBy?: string,
+    public createdDate?: Moment,
+    public lastModifiedDate?: Moment,
+    public lastModifiedBy?: string
   ) {}
 }

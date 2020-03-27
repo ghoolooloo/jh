@@ -4,6 +4,8 @@ import { HttpResponse } from '@angular/common/http';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
+import * as moment from 'moment';
+import { DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
 
 import { IShop, Shop } from 'app/shared/model/shop.model';
 import { ShopService } from './shop.service';
@@ -26,13 +28,31 @@ export class ShopUpdateComponent implements OnInit {
     district: [null, [Validators.maxLength(20)]],
     offsetType: [null, [Validators.required]],
     longitude: [null, [Validators.required]],
-    latitude: [null, [Validators.required]]
+    latitude: [null, [Validators.required]],
+    shopOpen: [null, [Validators.maxLength(8)]],
+    shopClose: [null, [Validators.maxLength(8)]],
+    maxDeliveryDistance: [null, [Validators.min(0), Validators.max(50)]],
+    minDeliveryAmount: [null, [Validators.min(0), Validators.max(999999)]],
+    lunchServeStartingAt: [null, [Validators.maxLength(8)]],
+    lunchServeEndAt: [null, [Validators.maxLength(8)]],
+    supperServeStartingAt: [null, [Validators.maxLength(8)]],
+    supperServeEndAt: [null, [Validators.maxLength(8)]],
+    createdBy: [null, [Validators.required, Validators.maxLength(20)]],
+    createdDate: [null, [Validators.required]],
+    lastModifiedDate: [],
+    lastModifiedBy: [null, [Validators.maxLength(20)]]
   });
 
   constructor(protected shopService: ShopService, protected activatedRoute: ActivatedRoute, private fb: FormBuilder) {}
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ shop }) => {
+      if (!shop.id) {
+        const today = moment().startOf('day');
+        shop.createdDate = today;
+        shop.lastModifiedDate = today;
+      }
+
       this.updateForm(shop);
     });
   }
@@ -49,7 +69,19 @@ export class ShopUpdateComponent implements OnInit {
       district: shop.district,
       offsetType: shop.offsetType,
       longitude: shop.longitude,
-      latitude: shop.latitude
+      latitude: shop.latitude,
+      shopOpen: shop.shopOpen,
+      shopClose: shop.shopClose,
+      maxDeliveryDistance: shop.maxDeliveryDistance,
+      minDeliveryAmount: shop.minDeliveryAmount,
+      lunchServeStartingAt: shop.lunchServeStartingAt,
+      lunchServeEndAt: shop.lunchServeEndAt,
+      supperServeStartingAt: shop.supperServeStartingAt,
+      supperServeEndAt: shop.supperServeEndAt,
+      createdBy: shop.createdBy,
+      createdDate: shop.createdDate ? shop.createdDate.format(DATE_TIME_FORMAT) : null,
+      lastModifiedDate: shop.lastModifiedDate ? shop.lastModifiedDate.format(DATE_TIME_FORMAT) : null,
+      lastModifiedBy: shop.lastModifiedBy
     });
   }
 
@@ -80,7 +112,23 @@ export class ShopUpdateComponent implements OnInit {
       district: this.editForm.get(['district'])!.value,
       offsetType: this.editForm.get(['offsetType'])!.value,
       longitude: this.editForm.get(['longitude'])!.value,
-      latitude: this.editForm.get(['latitude'])!.value
+      latitude: this.editForm.get(['latitude'])!.value,
+      shopOpen: this.editForm.get(['shopOpen'])!.value,
+      shopClose: this.editForm.get(['shopClose'])!.value,
+      maxDeliveryDistance: this.editForm.get(['maxDeliveryDistance'])!.value,
+      minDeliveryAmount: this.editForm.get(['minDeliveryAmount'])!.value,
+      lunchServeStartingAt: this.editForm.get(['lunchServeStartingAt'])!.value,
+      lunchServeEndAt: this.editForm.get(['lunchServeEndAt'])!.value,
+      supperServeStartingAt: this.editForm.get(['supperServeStartingAt'])!.value,
+      supperServeEndAt: this.editForm.get(['supperServeEndAt'])!.value,
+      createdBy: this.editForm.get(['createdBy'])!.value,
+      createdDate: this.editForm.get(['createdDate'])!.value
+        ? moment(this.editForm.get(['createdDate'])!.value, DATE_TIME_FORMAT)
+        : undefined,
+      lastModifiedDate: this.editForm.get(['lastModifiedDate'])!.value
+        ? moment(this.editForm.get(['lastModifiedDate'])!.value, DATE_TIME_FORMAT)
+        : undefined,
+      lastModifiedBy: this.editForm.get(['lastModifiedBy'])!.value
     };
   }
 

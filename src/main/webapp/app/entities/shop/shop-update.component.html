@@ -160,6 +160,170 @@
                         </small>
                     </div>
                 </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jhApp.shop.shopOpen" for="field_shopOpen" [ngbTooltip]="'jhApp.shop.help.shopOpen' | translate">Shop Open</label>
+                    <input type="text" class="form-control" name="shopOpen" id="field_shopOpen"
+                           formControlName="shopOpen"/>
+                    <div *ngIf="editForm.get('shopOpen')!.invalid && (editForm.get('shopOpen')!.dirty || editForm.get('shopOpen')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('shopOpen')?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 8 }">
+                        This field cannot be longer than 8 characters.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jhApp.shop.shopClose" for="field_shopClose" [ngbTooltip]="'jhApp.shop.help.shopClose' | translate">Shop Close</label>
+                    <input type="text" class="form-control" name="shopClose" id="field_shopClose"
+                           formControlName="shopClose"/>
+                    <div *ngIf="editForm.get('shopClose')!.invalid && (editForm.get('shopClose')!.dirty || editForm.get('shopClose')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('shopClose')?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 8 }">
+                        This field cannot be longer than 8 characters.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jhApp.shop.maxDeliveryDistance" for="field_maxDeliveryDistance" [ngbTooltip]="'jhApp.shop.help.maxDeliveryDistance' | translate">Max Delivery Distance</label>
+                    <input type="number" class="form-control" name="maxDeliveryDistance" id="field_maxDeliveryDistance"
+                           formControlName="maxDeliveryDistance"/>
+                    <div *ngIf="editForm.get('maxDeliveryDistance')!.invalid && (editForm.get('maxDeliveryDistance')!.dirty || editForm.get('maxDeliveryDistance')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('maxDeliveryDistance')?.errors?.min" jhiTranslate="entity.validation.min" [translateValues]="{ min: 0 }">
+                            This field should be at least 0.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('maxDeliveryDistance')?.errors?.max" jhiTranslate="entity.validation.max" [translateValues]="{ max: 50 }">
+                            This field cannot be more than 50.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.get('maxDeliveryDistance')?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jhApp.shop.minDeliveryAmount" for="field_minDeliveryAmount" [ngbTooltip]="'jhApp.shop.help.minDeliveryAmount' | translate">Min Delivery Amount</label>
+                    <input type="number" class="form-control" name="minDeliveryAmount" id="field_minDeliveryAmount"
+                           formControlName="minDeliveryAmount"/>
+                    <div *ngIf="editForm.get('minDeliveryAmount')!.invalid && (editForm.get('minDeliveryAmount')!.dirty || editForm.get('minDeliveryAmount')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('minDeliveryAmount')?.errors?.min" jhiTranslate="entity.validation.min" [translateValues]="{ min: 0 }">
+                            This field should be at least 0.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('minDeliveryAmount')?.errors?.max" jhiTranslate="entity.validation.max" [translateValues]="{ max: 999999 }">
+                            This field cannot be more than 999999.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.get('minDeliveryAmount')?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jhApp.shop.lunchServeStartingAt" for="field_lunchServeStartingAt" [ngbTooltip]="'jhApp.shop.help.lunchServeStartingAt' | translate">Lunch Serve Starting At</label>
+                    <input type="text" class="form-control" name="lunchServeStartingAt" id="field_lunchServeStartingAt"
+                           formControlName="lunchServeStartingAt"/>
+                    <div *ngIf="editForm.get('lunchServeStartingAt')!.invalid && (editForm.get('lunchServeStartingAt')!.dirty || editForm.get('lunchServeStartingAt')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('lunchServeStartingAt')?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 8 }">
+                        This field cannot be longer than 8 characters.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jhApp.shop.lunchServeEndAt" for="field_lunchServeEndAt" [ngbTooltip]="'jhApp.shop.help.lunchServeEndAt' | translate">Lunch Serve End At</label>
+                    <input type="text" class="form-control" name="lunchServeEndAt" id="field_lunchServeEndAt"
+                           formControlName="lunchServeEndAt"/>
+                    <div *ngIf="editForm.get('lunchServeEndAt')!.invalid && (editForm.get('lunchServeEndAt')!.dirty || editForm.get('lunchServeEndAt')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('lunchServeEndAt')?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 8 }">
+                        This field cannot be longer than 8 characters.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jhApp.shop.supperServeStartingAt" for="field_supperServeStartingAt" [ngbTooltip]="'jhApp.shop.help.supperServeStartingAt' | translate">Supper Serve Starting At</label>
+                    <input type="text" class="form-control" name="supperServeStartingAt" id="field_supperServeStartingAt"
+                           formControlName="supperServeStartingAt"/>
+                    <div *ngIf="editForm.get('supperServeStartingAt')!.invalid && (editForm.get('supperServeStartingAt')!.dirty || editForm.get('supperServeStartingAt')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('supperServeStartingAt')?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 8 }">
+                        This field cannot be longer than 8 characters.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jhApp.shop.supperServeEndAt" for="field_supperServeEndAt" [ngbTooltip]="'jhApp.shop.help.supperServeEndAt' | translate">Supper Serve End At</label>
+                    <input type="text" class="form-control" name="supperServeEndAt" id="field_supperServeEndAt"
+                           formControlName="supperServeEndAt"/>
+                    <div *ngIf="editForm.get('supperServeEndAt')!.invalid && (editForm.get('supperServeEndAt')!.dirty || editForm.get('supperServeEndAt')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('supperServeEndAt')?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 8 }">
+                        This field cannot be longer than 8 characters.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jhApp.shop.createdBy" for="field_createdBy">Created By</label>
+                    <input type="text" class="form-control" name="createdBy" id="field_createdBy"
+                           formControlName="createdBy"/>
+                    <div *ngIf="editForm.get('createdBy')!.invalid && (editForm.get('createdBy')!.dirty || editForm.get('createdBy')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('createdBy')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('createdBy')?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 20 }">
+                        This field cannot be longer than 20 characters.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jhApp.shop.createdDate" for="field_createdDate">Created Date</label>
+                    <div class="d-flex">
+                        <input id="field_createdDate" type="datetime-local" class="form-control" name="createdDate" formControlName="createdDate" placeholder="YYYY-MM-DD HH:mm"/>
+                    </div>
+                    <div *ngIf="editForm.get('createdDate')!.invalid && (editForm.get('createdDate')!.dirty || editForm.get('createdDate')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('createdDate')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.get('createdDate')?.errors?.ZonedDateTimelocal" jhiTranslate="entity.validation.ZonedDateTimelocal">
+                            This field should be a date and time.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jhApp.shop.lastModifiedDate" for="field_lastModifiedDate">Last Modified Date</label>
+                    <div class="d-flex">
+                        <input id="field_lastModifiedDate" type="datetime-local" class="form-control" name="lastModifiedDate" formControlName="lastModifiedDate" placeholder="YYYY-MM-DD HH:mm"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jhApp.shop.lastModifiedBy" for="field_lastModifiedBy">Last Modified By</label>
+                    <input type="text" class="form-control" name="lastModifiedBy" id="field_lastModifiedBy"
+                           formControlName="lastModifiedBy"/>
+                    <div *ngIf="editForm.get('lastModifiedBy')!.invalid && (editForm.get('lastModifiedBy')!.dirty || editForm.get('lastModifiedBy')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('lastModifiedBy')?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 20 }">
+                        This field cannot be longer than 20 characters.
+                        </small>
+                    </div>
+                </div>
             </div>
 
             <div>

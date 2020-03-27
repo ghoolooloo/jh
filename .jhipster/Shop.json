@@ -93,6 +93,110 @@
             "fieldValidateRules": [
                 "required"
             ]
+        },
+        {
+            "fieldName": "shopOpen",
+            "javadoc": "开始营业时间。格式：05:00、19:00",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "8"
+        },
+        {
+            "fieldName": "shopClose",
+            "javadoc": "结束营业时间。格式：05:00、19:00",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "8"
+        },
+        {
+            "fieldName": "maxDeliveryDistance",
+            "javadoc": "最大配送距离（相对于最近门店），单位：公里",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "min",
+                "max"
+            ],
+            "fieldValidateRulesMin": "0",
+            "fieldValidateRulesMax": "50"
+        },
+        {
+            "fieldName": "minDeliveryAmount",
+            "javadoc": "起送金额（单位：分）。是限制订单的priceTotal字段的最小值，低于这个值的订单不外送。自助订单不受此限制！",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "min",
+                "max"
+            ],
+            "fieldValidateRulesMin": "0",
+            "fieldValidateRulesMax": "999999"
+        },
+        {
+            "fieldName": "lunchServeStartingAt",
+            "javadoc": "正餐午餐供餐起始时间。格式：05:00、19:00",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "8"
+        },
+        {
+            "fieldName": "lunchServeEndAt",
+            "javadoc": "正餐午餐供餐结束时间。格式：05:00、19:00",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "8"
+        },
+        {
+            "fieldName": "supperServeStartingAt",
+            "javadoc": "正餐晚餐配供餐始时间。格式：05:00、19:00",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "8"
+        },
+        {
+            "fieldName": "supperServeEndAt",
+            "javadoc": "正餐晚餐供餐结束时间。格式：05:00、19:00",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "8"
+        },
+        {
+            "fieldName": "createdBy",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "20"
+        },
+        {
+            "fieldName": "createdDate",
+            "fieldType": "Instant",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "lastModifiedDate",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "lastModifiedBy",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "20"
         }
     ],
     "relationships": [],

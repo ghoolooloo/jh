@@ -33,6 +33,18 @@
                     <th scope="col" ><span jhiTranslate="jhApp.shop.offsetType">Offset Type</span></th>
                     <th scope="col" ><span jhiTranslate="jhApp.shop.longitude">Longitude</span></th>
                     <th scope="col" ><span jhiTranslate="jhApp.shop.latitude">Latitude</span></th>
+                    <th scope="col" ><span jhiTranslate="jhApp.shop.shopOpen">Shop Open</span></th>
+                    <th scope="col" ><span jhiTranslate="jhApp.shop.shopClose">Shop Close</span></th>
+                    <th scope="col" ><span jhiTranslate="jhApp.shop.maxDeliveryDistance">Max Delivery Distance</span></th>
+                    <th scope="col" ><span jhiTranslate="jhApp.shop.minDeliveryAmount">Min Delivery Amount</span></th>
+                    <th scope="col" ><span jhiTranslate="jhApp.shop.lunchServeStartingAt">Lunch Serve Starting At</span></th>
+                    <th scope="col" ><span jhiTranslate="jhApp.shop.lunchServeEndAt">Lunch Serve End At</span></th>
+                    <th scope="col" ><span jhiTranslate="jhApp.shop.supperServeStartingAt">Supper Serve Starting At</span></th>
+                    <th scope="col" ><span jhiTranslate="jhApp.shop.supperServeEndAt">Supper Serve End At</span></th>
+                    <th scope="col" ><span jhiTranslate="jhApp.shop.createdBy">Created By</span></th>
+                    <th scope="col" ><span jhiTranslate="jhApp.shop.createdDate">Created Date</span></th>
+                    <th scope="col" ><span jhiTranslate="jhApp.shop.lastModifiedDate">Last Modified Date</span></th>
+                    <th scope="col" ><span jhiTranslate="jhApp.shop.lastModifiedBy">Last Modified By</span></th>
                     <th scope="col"></th>
                 </tr>
             </thead>
@@ -49,6 +61,18 @@
                     <td jhiTranslate="{{ 'jhApp.OffsetType.' + shop.offsetType }}">{{ shop.offsetType }}</td>
                     <td>{{ shop.longitude }}</td>
                     <td>{{ shop.latitude }}</td>
+                    <td>{{ shop.shopOpen }}</td>
+                    <td>{{ shop.shopClose }}</td>
+                    <td>{{ shop.maxDeliveryDistance }}</td>
+                    <td>{{ shop.minDeliveryAmount }}</td>
+                    <td>{{ shop.lunchServeStartingAt }}</td>
+                    <td>{{ shop.lunchServeEndAt }}</td>
+                    <td>{{ shop.supperServeStartingAt }}</td>
+                    <td>{{ shop.supperServeEndAt }}</td>
+                    <td>{{ shop.createdBy }}</td>
+                    <td>{{ shop.createdDate | date:'medium' }}</td>
+                    <td>{{ shop.lastModifiedDate | date:'medium' }}</td>
+                    <td>{{ shop.lastModifiedBy }}</td>
                     <td class="text-right">
                         <div class="btn-group">
                             <button type="submit"

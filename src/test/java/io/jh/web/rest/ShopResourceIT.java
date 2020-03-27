@@ -17,6 +17,8 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -64,6 +66,42 @@ public class ShopResourceIT {
     private static final Double DEFAULT_LATITUDE = 1D;
     private static final Double UPDATED_LATITUDE = 2D;
 
+    private static final String DEFAULT_SHOP_OPEN = "AAAAAAAA";
+    private static final String UPDATED_SHOP_OPEN = "BBBBBBBB";
+
+    private static final String DEFAULT_SHOP_CLOSE = "AAAAAAAA";
+    private static final String UPDATED_SHOP_CLOSE = "BBBBBBBB";
+
+    private static final Integer DEFAULT_MAX_DELIVERY_DISTANCE = 0;
+    private static final Integer UPDATED_MAX_DELIVERY_DISTANCE = 1;
+
+    private static final Integer DEFAULT_MIN_DELIVERY_AMOUNT = 0;
+    private static final Integer UPDATED_MIN_DELIVERY_AMOUNT = 1;
+
+    private static final String DEFAULT_LUNCH_SERVE_STARTING_AT = "AAAAAAAA";
+    private static final String UPDATED_LUNCH_SERVE_STARTING_AT = "BBBBBBBB";
+
+    private static final String DEFAULT_LUNCH_SERVE_END_AT = "AAAAAAAA";
+    private static final String UPDATED_LUNCH_SERVE_END_AT = "BBBBBBBB";
+
+    private static final String DEFAULT_SUPPER_SERVE_STARTING_AT = "AAAAAAAA";
+    private static final String UPDATED_SUPPER_SERVE_STARTING_AT = "BBBBBBBB";
+
+    private static final String DEFAULT_SUPPER_SERVE_END_AT = "AAAAAAAA";
+    private static final String UPDATED_SUPPER_SERVE_END_AT = "BBBBBBBB";
+
+    private static final String DEFAULT_CREATED_BY = "AAAAAAAAAA";
+    private static final String UPDATED_CREATED_BY = "BBBBBBBBBB";
+
+    private static final Instant DEFAULT_CREATED_DATE = Instant.ofEpochMilli(0L);
+    private static final Instant UPDATED_CREATED_DATE = Instant.now().truncatedTo(ChronoUnit.MILLIS);
+
+    private static final Instant DEFAULT_LAST_MODIFIED_DATE = Instant.ofEpochMilli(0L);
+    private static final Instant UPDATED_LAST_MODIFIED_DATE = Instant.now().truncatedTo(ChronoUnit.MILLIS);
+
+    private static final String DEFAULT_LAST_MODIFIED_BY = "AAAAAAAAAA";
+    private static final String UPDATED_LAST_MODIFIED_BY = "BBBBBBBBBB";
+
     @Autowired
     private ShopRepository shopRepository;
 
@@ -98,7 +136,19 @@ public class ShopResourceIT {
             .district(DEFAULT_DISTRICT)
             .offsetType(DEFAULT_OFFSET_TYPE)
             .longitude(DEFAULT_LONGITUDE)
-            .latitude(DEFAULT_LATITUDE);
+            .latitude(DEFAULT_LATITUDE)
+            .shopOpen(DEFAULT_SHOP_OPEN)
+            .shopClose(DEFAULT_SHOP_CLOSE)
+            .maxDeliveryDistance(DEFAULT_MAX_DELIVERY_DISTANCE)
+            .minDeliveryAmount(DEFAULT_MIN_DELIVERY_AMOUNT)
+            .lunchServeStartingAt(DEFAULT_LUNCH_SERVE_STARTING_AT)
+            .lunchServeEndAt(DEFAULT_LUNCH_SERVE_END_AT)
+            .supperServeStartingAt(DEFAULT_SUPPER_SERVE_STARTING_AT)
+            .supperServeEndAt(DEFAULT_SUPPER_SERVE_END_AT)
+            .createdBy(DEFAULT_CREATED_BY)
+            .createdDate(DEFAULT_CREATED_DATE)
+            .lastModifiedDate(DEFAULT_LAST_MODIFIED_DATE)
+            .lastModifiedBy(DEFAULT_LAST_MODIFIED_BY);
         return shop;
     }
     /**
@@ -118,7 +168,19 @@ public class ShopResourceIT {
             .district(UPDATED_DISTRICT)
             .offsetType(UPDATED_OFFSET_TYPE)
             .longitude(UPDATED_LONGITUDE)
-            .latitude(UPDATED_LATITUDE);
+            .latitude(UPDATED_LATITUDE)
+            .shopOpen(UPDATED_SHOP_OPEN)
+            .shopClose(UPDATED_SHOP_CLOSE)
+            .maxDeliveryDistance(UPDATED_MAX_DELIVERY_DISTANCE)
+            .minDeliveryAmount(UPDATED_MIN_DELIVERY_AMOUNT)
+            .lunchServeStartingAt(UPDATED_LUNCH_SERVE_STARTING_AT)
+            .lunchServeEndAt(UPDATED_LUNCH_SERVE_END_AT)
+            .supperServeStartingAt(UPDATED_SUPPER_SERVE_STARTING_AT)
+            .supperServeEndAt(UPDATED_SUPPER_SERVE_END_AT)
+            .createdBy(UPDATED_CREATED_BY)
+            .createdDate(UPDATED_CREATED_DATE)
+            .lastModifiedDate(UPDATED_LAST_MODIFIED_DATE)
+            .lastModifiedBy(UPDATED_LAST_MODIFIED_BY);
         return shop;
     }
 
@@ -153,6 +215,18 @@ public class ShopResourceIT {
         assertThat(testShop.getOffsetType()).isEqualTo(DEFAULT_OFFSET_TYPE);
         assertThat(testShop.getLongitude()).isEqualTo(DEFAULT_LONGITUDE);
         assertThat(testShop.getLatitude()).isEqualTo(DEFAULT_LATITUDE);
+        assertThat(testShop.getShopOpen()).isEqualTo(DEFAULT_SHOP_OPEN);
+        assertThat(testShop.getShopClose()).isEqualTo(DEFAULT_SHOP_CLOSE);
+        assertThat(testShop.getMaxDeliveryDistance()).isEqualTo(DEFAULT_MAX_DELIVERY_DISTANCE);
+        assertThat(testShop.getMinDeliveryAmount()).isEqualTo(DEFAULT_MIN_DELIVERY_AMOUNT);
+        assertThat(testShop.getLunchServeStartingAt()).isEqualTo(DEFAULT_LUNCH_SERVE_STARTING_AT);
+        assertThat(testShop.getLunchServeEndAt()).isEqualTo(DEFAULT_LUNCH_SERVE_END_AT);
+        assertThat(testShop.getSupperServeStartingAt()).isEqualTo(DEFAULT_SUPPER_SERVE_STARTING_AT);
+        assertThat(testShop.getSupperServeEndAt()).isEqualTo(DEFAULT_SUPPER_SERVE_END_AT);
+        assertThat(testShop.getCreatedBy()).isEqualTo(DEFAULT_CREATED_BY);
+        assertThat(testShop.getCreatedDate()).isEqualTo(DEFAULT_CREATED_DATE);
+        assertThat(testShop.getLastModifiedDate()).isEqualTo(DEFAULT_LAST_MODIFIED_DATE);
+        assertThat(testShop.getLastModifiedBy()).isEqualTo(DEFAULT_LAST_MODIFIED_BY);
     }
 
     @Test
@@ -311,6 +385,44 @@ public class ShopResourceIT {
 
     @Test
     @Transactional
+    public void checkCreatedByIsRequired() throws Exception {
+        int databaseSizeBeforeTest = shopRepository.findAll().size();
+        // set the field null
+        shop.setCreatedBy(null);
+
+        // Create the Shop, which fails.
+        ShopDTO shopDTO = shopMapper.toDto(shop);
+
+        restShopMockMvc.perform(post("/api/shops")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(TestUtil.convertObjectToJsonBytes(shopDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<Shop> shopList = shopRepository.findAll();
+        assertThat(shopList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    public void checkCreatedDateIsRequired() throws Exception {
+        int databaseSizeBeforeTest = shopRepository.findAll().size();
+        // set the field null
+        shop.setCreatedDate(null);
+
+        // Create the Shop, which fails.
+        ShopDTO shopDTO = shopMapper.toDto(shop);
+
+        restShopMockMvc.perform(post("/api/shops")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(TestUtil.convertObjectToJsonBytes(shopDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<Shop> shopList = shopRepository.findAll();
+        assertThat(shopList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllShops() throws Exception {
         // Initialize the database
         shopRepository.saveAndFlush(shop);
@@ -329,7 +441,19 @@ public class ShopResourceIT {
             .andExpect(jsonPath("$.[*].district").value(hasItem(DEFAULT_DISTRICT)))
             .andExpect(jsonPath("$.[*].offsetType").value(hasItem(DEFAULT_OFFSET_TYPE.toString())))
             .andExpect(jsonPath("$.[*].longitude").value(hasItem(DEFAULT_LONGITUDE.doubleValue())))
-            .andExpect(jsonPath("$.[*].latitude").value(hasItem(DEFAULT_LATITUDE.doubleValue())));
+            .andExpect(jsonPath("$.[*].latitude").value(hasItem(DEFAULT_LATITUDE.doubleValue())))
+            .andExpect(jsonPath("$.[*].shopOpen").value(hasItem(DEFAULT_SHOP_OPEN)))
+            .andExpect(jsonPath("$.[*].shopClose").value(hasItem(DEFAULT_SHOP_CLOSE)))
+            .andExpect(jsonPath("$.[*].maxDeliveryDistance").value(hasItem(DEFAULT_MAX_DELIVERY_DISTANCE)))
+            .andExpect(jsonPath("$.[*].minDeliveryAmount").value(hasItem(DEFAULT_MIN_DELIVERY_AMOUNT)))
+            .andExpect(jsonPath("$.[*].lunchServeStartingAt").value(hasItem(DEFAULT_LUNCH_SERVE_STARTING_AT)))
+            .andExpect(jsonPath("$.[*].lunchServeEndAt").value(hasItem(DEFAULT_LUNCH_SERVE_END_AT)))
+            .andExpect(jsonPath("$.[*].supperServeStartingAt").value(hasItem(DEFAULT_SUPPER_SERVE_STARTING_AT)))
+            .andExpect(jsonPath("$.[*].supperServeEndAt").value(hasItem(DEFAULT_SUPPER_SERVE_END_AT)))
+            .andExpect(jsonPath("$.[*].createdBy").value(hasItem(DEFAULT_CREATED_BY)))
+            .andExpect(jsonPath("$.[*].createdDate").value(hasItem(DEFAULT_CREATED_DATE.toString())))
+            .andExpect(jsonPath("$.[*].lastModifiedDate").value(hasItem(DEFAULT_LAST_MODIFIED_DATE.toString())))
+            .andExpect(jsonPath("$.[*].lastModifiedBy").value(hasItem(DEFAULT_LAST_MODIFIED_BY)));
     }
     
     @Test
@@ -352,7 +476,19 @@ public class ShopResourceIT {
             .andExpect(jsonPath("$.district").value(DEFAULT_DISTRICT))
             .andExpect(jsonPath("$.offsetType").value(DEFAULT_OFFSET_TYPE.toString()))
             .andExpect(jsonPath("$.longitude").value(DEFAULT_LONGITUDE.doubleValue()))
-            .andExpect(jsonPath("$.latitude").value(DEFAULT_LATITUDE.doubleValue()));
+            .andExpect(jsonPath("$.latitude").value(DEFAULT_LATITUDE.doubleValue()))
+            .andExpect(jsonPath("$.shopOpen").value(DEFAULT_SHOP_OPEN))
+            .andExpect(jsonPath("$.shopClose").value(DEFAULT_SHOP_CLOSE))
+            .andExpect(jsonPath("$.maxDeliveryDistance").value(DEFAULT_MAX_DELIVERY_DISTANCE))
+            .andExpect(jsonPath("$.minDeliveryAmount").value(DEFAULT_MIN_DELIVERY_AMOUNT))
+            .andExpect(jsonPath("$.lunchServeStartingAt").value(DEFAULT_LUNCH_SERVE_STARTING_AT))
+            .andExpect(jsonPath("$.lunchServeEndAt").value(DEFAULT_LUNCH_SERVE_END_AT))
+            .andExpect(jsonPath("$.supperServeStartingAt").value(DEFAULT_SUPPER_SERVE_STARTING_AT))
+            .andExpect(jsonPath("$.supperServeEndAt").value(DEFAULT_SUPPER_SERVE_END_AT))
+            .andExpect(jsonPath("$.createdBy").value(DEFAULT_CREATED_BY))
+            .andExpect(jsonPath("$.createdDate").value(DEFAULT_CREATED_DATE.toString()))
+            .andExpect(jsonPath("$.lastModifiedDate").value(DEFAULT_LAST_MODIFIED_DATE.toString()))
+            .andExpect(jsonPath("$.lastModifiedBy").value(DEFAULT_LAST_MODIFIED_BY));
     }
 
     @Test
@@ -385,7 +521,19 @@ public class ShopResourceIT {
             .district(UPDATED_DISTRICT)
             .offsetType(UPDATED_OFFSET_TYPE)
             .longitude(UPDATED_LONGITUDE)
-            .latitude(UPDATED_LATITUDE);
+            .latitude(UPDATED_LATITUDE)
+            .shopOpen(UPDATED_SHOP_OPEN)
+            .shopClose(UPDATED_SHOP_CLOSE)
+            .maxDeliveryDistance(UPDATED_MAX_DELIVERY_DISTANCE)
+            .minDeliveryAmount(UPDATED_MIN_DELIVERY_AMOUNT)
+            .lunchServeStartingAt(UPDATED_LUNCH_SERVE_STARTING_AT)
+            .lunchServeEndAt(UPDATED_LUNCH_SERVE_END_AT)
+            .supperServeStartingAt(UPDATED_SUPPER_SERVE_STARTING_AT)
+            .supperServeEndAt(UPDATED_SUPPER_SERVE_END_AT)
+            .createdBy(UPDATED_CREATED_BY)
+            .createdDate(UPDATED_CREATED_DATE)
+            .lastModifiedDate(UPDATED_LAST_MODIFIED_DATE)
+            .lastModifiedBy(UPDATED_LAST_MODIFIED_BY);
         ShopDTO shopDTO = shopMapper.toDto(updatedShop);
 
         restShopMockMvc.perform(put("/api/shops")
@@ -407,6 +555,18 @@ public class ShopResourceIT {
         assertThat(testShop.getOffsetType()).isEqualTo(UPDATED_OFFSET_TYPE);
         assertThat(testShop.getLongitude()).isEqualTo(UPDATED_LONGITUDE);
         assertThat(testShop.getLatitude()).isEqualTo(UPDATED_LATITUDE);
+        assertThat(testShop.getShopOpen()).isEqualTo(UPDATED_SHOP_OPEN);
+        assertThat(testShop.getShopClose()).isEqualTo(UPDATED_SHOP_CLOSE);
+        assertThat(testShop.getMaxDeliveryDistance()).isEqualTo(UPDATED_MAX_DELIVERY_DISTANCE);
+        assertThat(testShop.getMinDeliveryAmount()).isEqualTo(UPDATED_MIN_DELIVERY_AMOUNT);
+        assertThat(testShop.getLunchServeStartingAt()).isEqualTo(UPDATED_LUNCH_SERVE_STARTING_AT);
+        assertThat(testShop.getLunchServeEndAt()).isEqualTo(UPDATED_LUNCH_SERVE_END_AT);
+        assertThat(testShop.getSupperServeStartingAt()).isEqualTo(UPDATED_SUPPER_SERVE_STARTING_AT);
+        assertThat(testShop.getSupperServeEndAt()).isEqualTo(UPDATED_SUPPER_SERVE_END_AT);
+        assertThat(testShop.getCreatedBy()).isEqualTo(UPDATED_CREATED_BY);
+        assertThat(testShop.getCreatedDate()).isEqualTo(UPDATED_CREATED_DATE);
+        assertThat(testShop.getLastModifiedDate()).isEqualTo(UPDATED_LAST_MODIFIED_DATE);
+        assertThat(testShop.getLastModifiedBy()).isEqualTo(UPDATED_LAST_MODIFIED_BY);
     }
 
     @Test

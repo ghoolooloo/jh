@@ -26,6 +26,18 @@
       "offsetType": "Offset Type",
       "longitude": "Longitude",
       "latitude": "Latitude",
+      "shopOpen": "Shop Open",
+      "shopClose": "Shop Close",
+      "maxDeliveryDistance": "Max Delivery Distance",
+      "minDeliveryAmount": "Min Delivery Amount",
+      "lunchServeStartingAt": "Lunch Serve Starting At",
+      "lunchServeEndAt": "Lunch Serve End At",
+      "supperServeStartingAt": "Supper Serve Starting At",
+      "supperServeEndAt": "Supper Serve End At",
+      "createdBy": "Created By",
+      "createdDate": "Created Date",
+      "lastModifiedDate": "Last Modified Date",
+      "lastModifiedBy": "Last Modified By",
       "help": {
         "name": "门店名称",
         "sn": "门店编号，即微信门店的poi_id",
@@ -36,7 +48,15 @@
         "district": "地区",
         "offsetType": "坐标类型。由于门店来自微信，因此这里坐标类型固定为 MARS",
         "longitude": "经度",
-        "latitude": "纬度"
+        "latitude": "纬度",
+        "shopOpen": "开始营业时间。格式：05:00、19:00",
+        "shopClose": "结束营业时间。格式：05:00、19:00",
+        "maxDeliveryDistance": "最大配送距离（相对于最近门店），单位：公里",
+        "minDeliveryAmount": "起送金额（单位：分）。是限制订单的priceTotal字段的最小值，低于这个值的订单不外送。自助订单不受此限制！",
+        "lunchServeStartingAt": "正餐午餐供餐起始时间。格式：05:00、19:00",
+        "lunchServeEndAt": "正餐午餐供餐结束时间。格式：05:00、19:00",
+        "supperServeStartingAt": "正餐晚餐配供餐始时间。格式：05:00、19:00",
+        "supperServeEndAt": "正餐晚餐供餐结束时间。格式：05:00、19:00"
       }
     }
   }

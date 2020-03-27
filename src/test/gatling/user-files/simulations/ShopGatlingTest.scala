@@ -82,6 +82,18 @@ class ShopGatlingTest extends Simulation {
                 , "offsetType":"MARS"
                 , "longitude":null
                 , "latitude":null
+                , "shopOpen":"SAMPLE_TEXT"
+                , "shopClose":"SAMPLE_TEXT"
+                , "maxDeliveryDistance":"0"
+                , "minDeliveryAmount":"0"
+                , "lunchServeStartingAt":"SAMPLE_TEXT"
+                , "lunchServeEndAt":"SAMPLE_TEXT"
+                , "supperServeStartingAt":"SAMPLE_TEXT"
+                , "supperServeEndAt":"SAMPLE_TEXT"
+                , "createdBy":"SAMPLE_TEXT"
+                , "createdDate":"2020-01-01T00:00:00.000Z"
+                , "lastModifiedDate":"2020-01-01T00:00:00.000Z"
+                , "lastModifiedBy":"SAMPLE_TEXT"
                 }""")).asJson
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_shop_url"))).exitHereIfFailed

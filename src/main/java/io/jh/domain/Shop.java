@@ -8,6 +8,7 @@ import javax.validation.constraints.*;
 
 import java.io.Serializable;
 import java.util.Objects;
+import java.time.Instant;
 
 import io.jh.domain.enumeration.OffsetType;
 
@@ -99,6 +100,80 @@ public class Shop implements Serializable {
     @NotNull
     @Column(name = "latitude", nullable = false)
     private Double latitude;
+
+    /**
+     * 开始营业时间。格式：05:00、19:00
+     */
+    @Size(max = 8)
+    @Column(name = "shop_open", length = 8)
+    private String shopOpen;
+
+    /**
+     * 结束营业时间。格式：05:00、19:00
+     */
+    @Size(max = 8)
+    @Column(name = "shop_close", length = 8)
+    private String shopClose;
+
+    /**
+     * 最大配送距离（相对于最近门店），单位：公里
+     */
+    @Min(value = 0)
+    @Max(value = 50)
+    @Column(name = "max_delivery_distance")
+    private Integer maxDeliveryDistance;
+
+    /**
+     * 起送金额（单位：分）。是限制订单的priceTotal字段的最小值，低于这个值的订单不外送。自助订单不受此限制！
+     */
+    @Min(value = 0)
+    @Max(value = 999999)
+    @Column(name = "min_delivery_amount")
+    private Integer minDeliveryAmount;
+
+    /**
+     * 正餐午餐供餐起始时间。格式：05:00、19:00
+     */
+    @Size(max = 8)
+    @Column(name = "lunch_serve_starting_at", length = 8)
+    private String lunchServeStartingAt;
+
+    /**
+     * 正餐午餐供餐结束时间。格式：05:00、19:00
+     */
+    @Size(max = 8)
+    @Column(name = "lunch_serve_end_at", length = 8)
+    private String lunchServeEndAt;
+
+    /**
+     * 正餐晚餐配供餐始时间。格式：05:00、19:00
+     */
+    @Size(max = 8)
+    @Column(name = "supper_serve_starting_at", length = 8)
+    private String supperServeStartingAt;
+
+    /**
+     * 正餐晚餐供餐结束时间。格式：05:00、19:00
+     */
+    @Size(max = 8)
+    @Column(name = "supper_serve_end_at", length = 8)
+    private String supperServeEndAt;
+
+    @NotNull
+    @Size(max = 20)
+    @Column(name = "created_by", length = 20, nullable = false)
+    private String createdBy;
+
+    @NotNull
+    @Column(name = "created_date", nullable = false)
+    private Instant createdDate;
+
+    @Column(name = "last_modified_date")
+    private Instant lastModifiedDate;
+
+    @Size(max = 20)
+    @Column(name = "last_modified_by", length = 20)
+    private String lastModifiedBy;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -238,6 +313,162 @@ public class Shop implements Serializable {
     public void setLatitude(Double latitude) {
         this.latitude = latitude;
     }
+
+    public String getShopOpen() {
+        return shopOpen;
+    }
+
+    public Shop shopOpen(String shopOpen) {
+        this.shopOpen = shopOpen;
+        return this;
+    }
+
+    public void setShopOpen(String shopOpen) {
+        this.shopOpen = shopOpen;
+    }
+
+    public String getShopClose() {
+        return shopClose;
+    }
+
+    public Shop shopClose(String shopClose) {
+        this.shopClose = shopClose;
+        return this;
+    }
+
+    public void setShopClose(String shopClose) {
+        this.shopClose = shopClose;
+    }
+
+    public Integer getMaxDeliveryDistance() {
+        return maxDeliveryDistance;
+    }
+
+    public Shop maxDeliveryDistance(Integer maxDeliveryDistance) {
+        this.maxDeliveryDistance = maxDeliveryDistance;
+        return this;
+    }
+
+    public void setMaxDeliveryDistance(Integer maxDeliveryDistance) {
+        this.maxDeliveryDistance = maxDeliveryDistance;
+    }
+
+    public Integer getMinDeliveryAmount() {
+        return minDeliveryAmount;
+    }
+
+    public Shop minDeliveryAmount(Integer minDeliveryAmount) {
+        this.minDeliveryAmount = minDeliveryAmount;
+        return this;
+    }
+
+    public void setMinDeliveryAmount(Integer minDeliveryAmount) {
+        this.minDeliveryAmount = minDeliveryAmount;
+    }
+
+    public String getLunchServeStartingAt() {
+        return lunchServeStartingAt;
+    }
+
+    public Shop lunchServeStartingAt(String lunchServeStartingAt) {
+        this.lunchServeStartingAt = lunchServeStartingAt;
+        return this;
+    }
+
+    public void setLunchServeStartingAt(String lunchServeStartingAt) {
+        this.lunchServeStartingAt = lunchServeStartingAt;
+    }
+
+    public String getLunchServeEndAt() {
+        return lunchServeEndAt;
+    }
+
+    public Shop lunchServeEndAt(String lunchServeEndAt) {
+        this.lunchServeEndAt = lunchServeEndAt;
+        return this;
+    }
+
+    public void setLunchServeEndAt(String lunchServeEndAt) {
+        this.lunchServeEndAt = lunchServeEndAt;
+    }
+
+    public String getSupperServeStartingAt() {
+        return supperServeStartingAt;
+    }
+
+    public Shop supperServeStartingAt(String supperServeStartingAt) {
+        this.supperServeStartingAt = supperServeStartingAt;
+        return this;
+    }
+
+    public void setSupperServeStartingAt(String supperServeStartingAt) {
+        this.supperServeStartingAt = supperServeStartingAt;
+    }
+
+    public String getSupperServeEndAt() {
+        return supperServeEndAt;
+    }
+
+    public Shop supperServeEndAt(String supperServeEndAt) {
+        this.supperServeEndAt = supperServeEndAt;
+        return this;
+    }
+
+    public void setSupperServeEndAt(String supperServeEndAt) {
+        this.supperServeEndAt = supperServeEndAt;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public Shop createdBy(String createdBy) {
+        this.createdBy = createdBy;
+        return this;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public Instant getCreatedDate() {
+        return createdDate;
+    }
+
+    public Shop createdDate(Instant createdDate) {
+        this.createdDate = createdDate;
+        return this;
+    }
+
+    public void setCreatedDate(Instant createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public Instant getLastModifiedDate() {
+        return lastModifiedDate;
+    }
+
+    public Shop lastModifiedDate(Instant lastModifiedDate) {
+        this.lastModifiedDate = lastModifiedDate;
+        return this;
+    }
+
+    public void setLastModifiedDate(Instant lastModifiedDate) {
+        this.lastModifiedDate = lastModifiedDate;
+    }
+
+    public String getLastModifiedBy() {
+        return lastModifiedBy;
+    }
+
+    public Shop lastModifiedBy(String lastModifiedBy) {
+        this.lastModifiedBy = lastModifiedBy;
+        return this;
+    }
+
+    public void setLastModifiedBy(String lastModifiedBy) {
+        this.lastModifiedBy = lastModifiedBy;
+    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -270,6 +501,18 @@ public class Shop implements Serializable {
             ", offsetType='" + getOffsetType() + "'" +
             ", longitude=" + getLongitude() +
             ", latitude=" + getLatitude() +
+            ", shopOpen='" + getShopOpen() + "'" +
+            ", shopClose='" + getShopClose() + "'" +
+            ", maxDeliveryDistance=" + getMaxDeliveryDistance() +
+            ", minDeliveryAmount=" + getMinDeliveryAmount() +
+            ", lunchServeStartingAt='" + getLunchServeStartingAt() + "'" +
+            ", lunchServeEndAt='" + getLunchServeEndAt() + "'" +
+            ", supperServeStartingAt='" + getSupperServeStartingAt() + "'" +
+            ", supperServeEndAt='" + getSupperServeEndAt() + "'" +
+            ", createdBy='" + getCreatedBy() + "'" +
+            ", createdDate='" + getCreatedDate() + "'" +
+            ", lastModifiedDate='" + getLastModifiedDate() + "'" +
+            ", lastModifiedBy='" + getLastModifiedBy() + "'" +
             "}";
     }
 }
