@@ -8,6 +8,8 @@ export interface IFood {
   thumbnail?: string;
   picture?: string;
   price?: number;
+  originalPrice?: number;
+  cost?: number;
   packingFee?: number;
   desc?: string;
   sort?: number;
@@ -27,6 +29,8 @@ export class Food implements IFood {
     public thumbnail?: string,
     public picture?: string,
     public price?: number,
+    public originalPrice?: number,
+    public cost?: number,
     public packingFee?: number,
     public desc?: string,
     public sort?: number,

@@ -34,6 +34,8 @@ export class FoodUpdatePage {
   thumbnailInput = element(by.id('field_thumbnail'));
   pictureInput = element(by.id('field_picture'));
   priceInput = element(by.id('field_price'));
+  originalPriceInput = element(by.id('field_originalPrice'));
+  costInput = element(by.id('field_cost'));
   packingFeeInput = element(by.id('field_packingFee'));
   descInput = element(by.id('field_desc'));
   sortInput = element(by.id('field_sort'));
@@ -87,6 +89,22 @@ export class FoodUpdatePage {
 
   async getPriceInput(): Promise<string> {
     return await this.priceInput.getAttribute('value');
+  }
+
+  async setOriginalPriceInput(originalPrice: string): Promise<void> {
+    await this.originalPriceInput.sendKeys(originalPrice);
+  }
+
+  async getOriginalPriceInput(): Promise<string> {
+    return await this.originalPriceInput.getAttribute('value');
+  }
+
+  async setCostInput(cost: string): Promise<void> {
+    await this.costInput.sendKeys(cost);
+  }
+
+  async getCostInput(): Promise<string> {
+    return await this.costInput.getAttribute('value');
   }
 
   async setPackingFeeInput(packingFee: string): Promise<void> {

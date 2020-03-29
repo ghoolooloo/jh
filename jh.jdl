@@ -33,7 +33,9 @@ entity Food {
   sn String required unique maxlength(10) /** 编号 */
   thumbnail String maxlength(URL_MAXLENGTH) /** 缩略图 */
   picture String maxlength(URL_MAXLENGTH) /** 大图 */
-  price Integer required min(1) max(AMOUNT_MAX) /** 单价（单位：分） */
+  price Integer required min(0) max(AMOUNT_MAX) /** 售价（单位：分） */
+  originalPrice Integer min(0) max(AMOUNT_MAX) /** 原价（单位：分） */
+  cost Integer min(0) max(AMOUNT_MAX) /** 成本（单位：分） */
   packingFee Integer min(0) max(AMOUNT_MAX) /** 包装费（单位：分） */
   desc String maxlength(DESC_MAXLENGTH) /** 描述 */
   sort Integer required min(SORT_MIN) max(SORT_MAX) /** 序号 */

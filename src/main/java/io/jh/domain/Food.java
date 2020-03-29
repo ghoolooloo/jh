@@ -55,13 +55,29 @@ public class Food implements Serializable {
     private String picture;
 
     /**
-     * 单价（单位：分）
+     * 售价（单位：分）
      */
     @NotNull
-    @Min(value = 1)
+    @Min(value = 0)
     @Max(value = 999999)
     @Column(name = "price", nullable = false)
     private Integer price;
+
+    /**
+     * 原价（单位：分）
+     */
+    @Min(value = 0)
+    @Max(value = 999999)
+    @Column(name = "original_price")
+    private Integer originalPrice;
+
+    /**
+     * 成本（单位：分）
+     */
+    @Min(value = 0)
+    @Max(value = 999999)
+    @Column(name = "cost")
+    private Integer cost;
 
     /**
      * 包装费（单位：分）
@@ -187,6 +203,32 @@ public class Food implements Serializable {
 
     public void setPrice(Integer price) {
         this.price = price;
+    }
+
+    public Integer getOriginalPrice() {
+        return originalPrice;
+    }
+
+    public Food originalPrice(Integer originalPrice) {
+        this.originalPrice = originalPrice;
+        return this;
+    }
+
+    public void setOriginalPrice(Integer originalPrice) {
+        this.originalPrice = originalPrice;
+    }
+
+    public Integer getCost() {
+        return cost;
+    }
+
+    public Food cost(Integer cost) {
+        this.cost = cost;
+        return this;
+    }
+
+    public void setCost(Integer cost) {
+        this.cost = cost;
     }
 
     public Integer getPackingFee() {
@@ -332,6 +374,8 @@ public class Food implements Serializable {
             ", thumbnail='" + getThumbnail() + "'" +
             ", picture='" + getPicture() + "'" +
             ", price=" + getPrice() +
+            ", originalPrice=" + getOriginalPrice() +
+            ", cost=" + getCost() +
             ", packingFee=" + getPackingFee() +
             ", desc='" + getDesc() + "'" +
             ", sort=" + getSort() +

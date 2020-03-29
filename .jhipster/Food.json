@@ -41,14 +41,36 @@
         },
         {
             "fieldName": "price",
-            "javadoc": "单价（单位：分）",
+            "javadoc": "售价（单位：分）",
             "fieldType": "Integer",
             "fieldValidateRules": [
                 "required",
                 "min",
                 "max"
             ],
-            "fieldValidateRulesMin": "1",
+            "fieldValidateRulesMin": "0",
+            "fieldValidateRulesMax": "999999"
+        },
+        {
+            "fieldName": "originalPrice",
+            "javadoc": "原价（单位：分）",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "min",
+                "max"
+            ],
+            "fieldValidateRulesMin": "0",
+            "fieldValidateRulesMax": "999999"
+        },
+        {
+            "fieldName": "cost",
+            "javadoc": "成本（单位：分）",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "min",
+                "max"
+            ],
+            "fieldValidateRulesMin": "0",
             "fieldValidateRulesMax": "999999"
         },
         {

@@ -77,6 +77,8 @@ class FoodGatlingTest extends Simulation {
                 , "thumbnail":"SAMPLE_TEXT"
                 , "picture":"SAMPLE_TEXT"
                 , "price":"0"
+                , "originalPrice":"0"
+                , "cost":"0"
                 , "packingFee":"0"
                 , "desc":"SAMPLE_TEXT"
                 , "sort":"0"

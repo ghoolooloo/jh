@@ -28,6 +28,14 @@
                 <dd>
                     <span>{{ food.price }}</span>
                 </dd>
+                <dt><span jhiTranslate="jhApp.food.originalPrice" [ngbTooltip]="'jhApp.food.help.originalPrice' | translate">Original Price</span></dt>
+                <dd>
+                    <span>{{ food.originalPrice }}</span>
+                </dd>
+                <dt><span jhiTranslate="jhApp.food.cost" [ngbTooltip]="'jhApp.food.help.cost' | translate">Cost</span></dt>
+                <dd>
+                    <span>{{ food.cost }}</span>
+                </dd>
                 <dt><span jhiTranslate="jhApp.food.packingFee" [ngbTooltip]="'jhApp.food.help.packingFee' | translate">Packing Fee</span></dt>
                 <dd>
                     <span>{{ food.packingFee }}</span>

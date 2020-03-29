@@ -46,6 +46,8 @@ describe('Food e2e test', () => {
       foodUpdatePage.setThumbnailInput('thumbnail'),
       foodUpdatePage.setPictureInput('picture'),
       foodUpdatePage.setPriceInput('5'),
+      foodUpdatePage.setOriginalPriceInput('5'),
+      foodUpdatePage.setCostInput('5'),
       foodUpdatePage.setPackingFeeInput('5'),
       foodUpdatePage.setDescInput('desc'),
       foodUpdatePage.setSortInput('5'),
@@ -62,6 +64,8 @@ describe('Food e2e test', () => {
     expect(await foodUpdatePage.getThumbnailInput()).to.eq('thumbnail', 'Expected Thumbnail value to be equals to thumbnail');
     expect(await foodUpdatePage.getPictureInput()).to.eq('picture', 'Expected Picture value to be equals to picture');
     expect(await foodUpdatePage.getPriceInput()).to.eq('5', 'Expected price value to be equals to 5');
+    expect(await foodUpdatePage.getOriginalPriceInput()).to.eq('5', 'Expected originalPrice value to be equals to 5');
+    expect(await foodUpdatePage.getCostInput()).to.eq('5', 'Expected cost value to be equals to 5');
     expect(await foodUpdatePage.getPackingFeeInput()).to.eq('5', 'Expected packingFee value to be equals to 5');
     expect(await foodUpdatePage.getDescInput()).to.eq('desc', 'Expected Desc value to be equals to desc');
     expect(await foodUpdatePage.getSortInput()).to.eq('5', 'Expected sort value to be equals to 5');

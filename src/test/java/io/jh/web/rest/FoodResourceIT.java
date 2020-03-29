@@ -48,8 +48,14 @@ public class FoodResourceIT {
     private static final String DEFAULT_PICTURE = "AAAAAAAAAA";
     private static final String UPDATED_PICTURE = "BBBBBBBBBB";
 
-    private static final Integer DEFAULT_PRICE = 1;
-    private static final Integer UPDATED_PRICE = 2;
+    private static final Integer DEFAULT_PRICE = 0;
+    private static final Integer UPDATED_PRICE = 1;
+
+    private static final Integer DEFAULT_ORIGINAL_PRICE = 0;
+    private static final Integer UPDATED_ORIGINAL_PRICE = 1;
+
+    private static final Integer DEFAULT_COST = 0;
+    private static final Integer UPDATED_COST = 1;
 
     private static final Integer DEFAULT_PACKING_FEE = 0;
     private static final Integer UPDATED_PACKING_FEE = 1;
@@ -105,6 +111,8 @@ public class FoodResourceIT {
             .thumbnail(DEFAULT_THUMBNAIL)
             .picture(DEFAULT_PICTURE)
             .price(DEFAULT_PRICE)
+            .originalPrice(DEFAULT_ORIGINAL_PRICE)
+            .cost(DEFAULT_COST)
             .packingFee(DEFAULT_PACKING_FEE)
             .desc(DEFAULT_DESC)
             .sort(DEFAULT_SORT)
@@ -128,6 +136,8 @@ public class FoodResourceIT {
             .thumbnail(UPDATED_THUMBNAIL)
             .picture(UPDATED_PICTURE)
             .price(UPDATED_PRICE)
+            .originalPrice(UPDATED_ORIGINAL_PRICE)
+            .cost(UPDATED_COST)
             .packingFee(UPDATED_PACKING_FEE)
             .desc(UPDATED_DESC)
             .sort(UPDATED_SORT)
@@ -165,6 +175,8 @@ public class FoodResourceIT {
         assertThat(testFood.getThumbnail()).isEqualTo(DEFAULT_THUMBNAIL);
         assertThat(testFood.getPicture()).isEqualTo(DEFAULT_PICTURE);
         assertThat(testFood.getPrice()).isEqualTo(DEFAULT_PRICE);
+        assertThat(testFood.getOriginalPrice()).isEqualTo(DEFAULT_ORIGINAL_PRICE);
+        assertThat(testFood.getCost()).isEqualTo(DEFAULT_COST);
         assertThat(testFood.getPackingFee()).isEqualTo(DEFAULT_PACKING_FEE);
         assertThat(testFood.getDesc()).isEqualTo(DEFAULT_DESC);
         assertThat(testFood.getSort()).isEqualTo(DEFAULT_SORT);
@@ -345,6 +357,8 @@ public class FoodResourceIT {
             .andExpect(jsonPath("$.[*].thumbnail").value(hasItem(DEFAULT_THUMBNAIL)))
             .andExpect(jsonPath("$.[*].picture").value(hasItem(DEFAULT_PICTURE)))
             .andExpect(jsonPath("$.[*].price").value(hasItem(DEFAULT_PRICE)))
+            .andExpect(jsonPath("$.[*].originalPrice").value(hasItem(DEFAULT_ORIGINAL_PRICE)))
+            .andExpect(jsonPath("$.[*].cost").value(hasItem(DEFAULT_COST)))
             .andExpect(jsonPath("$.[*].packingFee").value(hasItem(DEFAULT_PACKING_FEE)))
             .andExpect(jsonPath("$.[*].desc").value(hasItem(DEFAULT_DESC)))
             .andExpect(jsonPath("$.[*].sort").value(hasItem(DEFAULT_SORT)))
@@ -371,6 +385,8 @@ public class FoodResourceIT {
             .andExpect(jsonPath("$.thumbnail").value(DEFAULT_THUMBNAIL))
             .andExpect(jsonPath("$.picture").value(DEFAULT_PICTURE))
             .andExpect(jsonPath("$.price").value(DEFAULT_PRICE))
+            .andExpect(jsonPath("$.originalPrice").value(DEFAULT_ORIGINAL_PRICE))
+            .andExpect(jsonPath("$.cost").value(DEFAULT_COST))
             .andExpect(jsonPath("$.packingFee").value(DEFAULT_PACKING_FEE))
             .andExpect(jsonPath("$.desc").value(DEFAULT_DESC))
             .andExpect(jsonPath("$.sort").value(DEFAULT_SORT))
@@ -407,6 +423,8 @@ public class FoodResourceIT {
             .thumbnail(UPDATED_THUMBNAIL)
             .picture(UPDATED_PICTURE)
             .price(UPDATED_PRICE)
+            .originalPrice(UPDATED_ORIGINAL_PRICE)
+            .cost(UPDATED_COST)
             .packingFee(UPDATED_PACKING_FEE)
             .desc(UPDATED_DESC)
             .sort(UPDATED_SORT)
@@ -431,6 +449,8 @@ public class FoodResourceIT {
         assertThat(testFood.getThumbnail()).isEqualTo(UPDATED_THUMBNAIL);
         assertThat(testFood.getPicture()).isEqualTo(UPDATED_PICTURE);
         assertThat(testFood.getPrice()).isEqualTo(UPDATED_PRICE);
+        assertThat(testFood.getOriginalPrice()).isEqualTo(UPDATED_ORIGINAL_PRICE);
+        assertThat(testFood.getCost()).isEqualTo(UPDATED_COST);
         assertThat(testFood.getPackingFee()).isEqualTo(UPDATED_PACKING_FEE);
         assertThat(testFood.getDesc()).isEqualTo(UPDATED_DESC);
         assertThat(testFood.getSort()).isEqualTo(UPDATED_SORT);

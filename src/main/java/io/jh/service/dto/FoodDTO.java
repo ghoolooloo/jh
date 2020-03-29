@@ -43,13 +43,29 @@ public class FoodDTO implements Serializable {
     private String picture;
 
     /**
-     * 单价（单位：分）
+     * 售价（单位：分）
      */
     @NotNull
-    @Min(value = 1)
+    @Min(value = 0)
     @Max(value = 999999)
-    @ApiModelProperty(value = "单价（单位：分）", required = true)
+    @ApiModelProperty(value = "售价（单位：分）", required = true)
     private Integer price;
+
+    /**
+     * 原价（单位：分）
+     */
+    @Min(value = 0)
+    @Max(value = 999999)
+    @ApiModelProperty(value = "原价（单位：分）")
+    private Integer originalPrice;
+
+    /**
+     * 成本（单位：分）
+     */
+    @Min(value = 0)
+    @Max(value = 999999)
+    @ApiModelProperty(value = "成本（单位：分）")
+    private Integer cost;
 
     /**
      * 包装费（单位：分）
@@ -143,6 +159,22 @@ public class FoodDTO implements Serializable {
 
     public void setPrice(Integer price) {
         this.price = price;
+    }
+
+    public Integer getOriginalPrice() {
+        return originalPrice;
+    }
+
+    public void setOriginalPrice(Integer originalPrice) {
+        this.originalPrice = originalPrice;
+    }
+
+    public Integer getCost() {
+        return cost;
+    }
+
+    public void setCost(Integer cost) {
+        this.cost = cost;
     }
 
     public Integer getPackingFee() {
@@ -247,6 +279,8 @@ public class FoodDTO implements Serializable {
             ", thumbnail='" + getThumbnail() + "'" +
             ", picture='" + getPicture() + "'" +
             ", price=" + getPrice() +
+            ", originalPrice=" + getOriginalPrice() +
+            ", cost=" + getCost() +
             ", packingFee=" + getPackingFee() +
             ", desc='" + getDesc() + "'" +
             ", sort=" + getSort() +
