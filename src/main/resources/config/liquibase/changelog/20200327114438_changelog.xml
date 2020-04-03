@@ -1,21 +1,19 @@
 <?xml version="1.1" encoding="UTF-8" standalone="no"?>
-<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
-    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" 
-    xmlns:pro="http://www.liquibase.org/xml/ns/pro" 
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:pro="http://www.liquibase.org/xml/ns/pro"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-3.8.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
     <changeSet author="i (generated)" id="1585309572830-33">
         <addColumn tableName="shop">
-            <column name="created_by" type="varchar(20)" value="admin">
-                <constraints nullable="false"/>
-            </column>
+            <column name="created_by" type="varchar(20)" value="admin" />
         </addColumn>
+        <addNotNullConstraint columnDataType="varchar(20)" columnName="created_by" tableName="shop" />
     </changeSet>
     <changeSet author="i (generated)" id="1585309572830-34">
         <addColumn tableName="shop">
-            <column name="created_date" type="timestamp" valueDate="2020-03-27T23:27:08">
-                <constraints nullable="false"/>
-            </column>
+            <column name="created_date" type="timestamp" valueDate="2020-03-27T23:27:08" />
         </addColumn>
+        <addNotNullConstraint columnDataType="timestamp" columnName="created_date" tableName="shop" />
     </changeSet>
     <changeSet author="i (generated)" id="1585309572830-35">
         <addColumn tableName="shop">
