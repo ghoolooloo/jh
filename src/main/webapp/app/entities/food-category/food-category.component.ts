@@ -7,6 +7,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { IFoodCategory } from 'app/shared/model/food-category.model';
 import { FoodCategoryService } from './food-category.service';
 import { FoodCategoryDeleteDialogComponent } from './food-category-delete-dialog.component';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'jhi-food-category',
@@ -19,7 +20,9 @@ export class FoodCategoryComponent implements OnInit, OnDestroy {
   constructor(
     protected foodCategoryService: FoodCategoryService,
     protected eventManager: JhiEventManager,
-    protected modalService: NgbModal
+    protected modalService: NgbModal,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    translate: TranslateService
   ) {}
 
   loadAll(): void {
@@ -49,5 +52,11 @@ export class FoodCategoryComponent implements OnInit, OnDestroy {
   delete(foodCategory: IFoodCategory): void {
     const modalRef = this.modalService.open(FoodCategoryDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
     modalRef.componentInstance.foodCategory = foodCategory;
+  }
+
+  confirm(foodCategory: IFoodCategory): void {
+    this.foodCategoryService.delete(foodCategory?.id!).subscribe(() => {
+      this.eventManager.broadcast('foodCategoryListModification');
+    });
   }
 }

@@ -61,7 +61,16 @@
                                 <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
                             </button>
 
-                            <button type="submit" (click)="delete(foodCategory)"
+                            <!-- <button type="submit" (click)="delete(foodCategory)"
+                                    class="btn btn-danger btn-sm">
+                                <fa-icon icon="times"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                            </button> -->
+                            <button type="submit" nz-popconfirm
+                                    nzPopconfirmTitle="{{ 'jhApp.foodCategory.delete.question' | translate:{id: foodCategory.id} }}"
+                                    nzOkText="{{ 'entity.action.ok' | translate }}"
+                                    nzCancelText="{{ 'entity.action.cancel' | translate }}"
+                                    (nzOnConfirm)="confirm(foodCategory)"
                                     class="btn btn-danger btn-sm">
                                 <fa-icon icon="times"></fa-icon>
                                 <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>

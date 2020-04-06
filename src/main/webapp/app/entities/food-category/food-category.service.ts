@@ -20,7 +20,7 @@ export class FoodCategoryService {
   create(foodCategory: IFoodCategory): Observable<EntityResponseType> {
     const copy = this.convertDateFromClient(foodCategory);
     return this.http
-      .post<IFoodCategory>(this.resourceUrl, copy, { observe: 'response' })
+      .post<IFoodCategory>(this.resourceUrl, copy, { observe: 'response' }) // observe选项表示返回的是完整响应对象，而不是只有响应体（默认）
       .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
   }
 
@@ -50,7 +50,7 @@ export class FoodCategoryService {
 
   protected convertDateFromClient(foodCategory: IFoodCategory): IFoodCategory {
     const copy: IFoodCategory = Object.assign({}, foodCategory, {
-      createdDate: foodCategory.createdDate && foodCategory.createdDate.isValid() ? foodCategory.createdDate.toJSON() : undefined,
+      createdDate: foodCategory.createdDate && foodCategory.createdDate.isValid() ? foodCategory.createdDate.toJSON() : undefined, // toJSON方法会将时间转换为UTC格式字符串
       lastModifiedDate:
         foodCategory.lastModifiedDate && foodCategory.lastModifiedDate.isValid() ? foodCategory.lastModifiedDate.toJSON() : undefined
     });
@@ -59,7 +59,8 @@ export class FoodCategoryService {
 
   protected convertDateFromServer(res: EntityResponseType): EntityResponseType {
     if (res.body) {
-      res.body.createdDate = res.body.createdDate ? moment(res.body.createdDate) : undefined;
+      // 响应体就是服务响应的IFoodCategory实例
+      res.body.createdDate = res.body.createdDate ? moment(res.body.createdDate) : undefined; // moment()会将时间转换为本地时区的时间
       res.body.lastModifiedDate = res.body.lastModifiedDate ? moment(res.body.lastModifiedDate) : undefined;
     }
     return res;
