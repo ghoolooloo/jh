@@ -15,7 +15,7 @@ import { FoodCategoryService } from './food-category.service';
   templateUrl: './food-category-update.component.html'
 })
 export class FoodCategoryUpdateComponent implements OnInit {
-  isSaving = false;
+  isSaving = false; // 控制“保存”按钮是否禁用，以避免重复提交
 
   editForm = this.fb.group({
     id: [],
