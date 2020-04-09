@@ -1,21 +1,27 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, TemplateRef, ViewChild } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { TranslateService } from '@ngx-translate/core';
 import { JhiEventManager, JhiAlert, JhiAlertService, JhiEventWithContent } from 'ng-jhipster';
 import { Subscription } from 'rxjs';
 
 import { AlertError } from './alert-error.model';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 @Component({
   selector: 'jhi-alert-error',
   template: `
-    <div class="alerts" role="alert">
-      <div *ngFor="let alert of alerts" [ngClass]="setClasses(alert)">
-        <ngb-alert *ngIf="alert && alert.type && alert.msg" [type]="alert.type" (close)="alert.close(alerts)">
-          <pre [innerHTML]="alert.msg"></pre>
-        </ngb-alert>
+    <ng-template let-alts="data">
+      <div class="ant-notification-notice-content">
+        <div class="ant-notification-notice-message" jhiTranslate="error.internalServerError">操作失败！</div>
+        <div class="ant-notification-notice-description">
+          <ul>
+            <li *ngFor="let alt of alts">
+              <span *ngIf="alt && alt.msg" [innerHTML]="alt.msg"></span>
+            </li>
+          </ul>
+        </div>
       </div>
-    </div>
+    </ng-template>
   `
 })
 export class AlertErrorComponent implements OnDestroy {
@@ -23,7 +29,14 @@ export class AlertErrorComponent implements OnDestroy {
   errorListener: Subscription;
   httpErrorListener: Subscription;
 
-  constructor(private alertService: JhiAlertService, private eventManager: JhiEventManager, translateService: TranslateService) {
+  @ViewChild(TemplateRef, { static: false }) template: TemplateRef<{}>;
+
+  constructor(
+    private alertService: JhiAlertService,
+    private eventManager: JhiEventManager,
+    private notificationService: NzNotificationService,
+    translateService: TranslateService
+  ) {
     this.errorListener = eventManager.subscribe('jhApp.error', (response: JhiEventWithContent<AlertError>) => {
       const errorResponse = response.content;
       this.addErrorAlert(errorResponse.message, errorResponse.key, errorResponse.params);
@@ -114,5 +127,9 @@ export class AlertErrorComponent implements OnDestroy {
     };
 
     this.alerts.push(this.alertService.addAlert(newAlert, this.alerts));
+    this.notificationService.config({
+      nzPlacement: 'bottomRight'
+    });
+    this.notificationService.template(this.template, { nzData: this.alerts });
   }
 }

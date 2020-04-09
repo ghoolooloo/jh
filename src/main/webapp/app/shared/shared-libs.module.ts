@@ -7,6 +7,8 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TranslateModule } from '@ngx-translate/core';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
+import { NzMessageModule } from 'ng-zorro-antd/message';
+import { NzNotificationModule } from 'ng-zorro-antd/notification';
 
 @NgModule({
   exports: [
@@ -18,7 +20,9 @@ import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
     FontAwesomeModule,
     ReactiveFormsModule,
     TranslateModule,
-    NzPopconfirmModule
+    NzPopconfirmModule,
+    NzMessageModule,
+    NzNotificationModule
   ]
 })
 export class JhSharedLibsModule {}

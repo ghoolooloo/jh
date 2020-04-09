@@ -1,13 +1,13 @@
 import { JhiAlertService } from 'ng-jhipster';
 import { HttpInterceptor, HttpRequest, HttpResponse, HttpHandler, HttpEvent } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Injectable()
 export class NotificationInterceptor implements HttpInterceptor {
-  constructor(private alertService: JhiAlertService, private messageService: NzMessageService) {}
+  constructor(private alertService: JhiAlertService, private injector: Injector) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(request).pipe(
@@ -25,11 +25,8 @@ export class NotificationInterceptor implements HttpInterceptor {
           });
 
           if (alert) {
-            this.alertService.success(alert, { param: alertParams });
-            const alerts = this.alertService.get();
-            alerts.forEach(a => {
-              this.messageService.info(a.msg);
-            });
+            const messageService = this.injector.get(NzMessageService);
+            messageService.info(this.alertService.success(alert, { param: alertParams }).msg);
           }
         }
       })
