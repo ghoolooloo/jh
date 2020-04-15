@@ -29,7 +29,8 @@ export class AlertErrorComponent implements OnDestroy {
   errorListener: Subscription;
   httpErrorListener: Subscription;
 
-  @ViewChild(TemplateRef, { static: false }) template: TemplateRef<{}>;
+  @ViewChild(TemplateRef, { static: false })
+  template!: TemplateRef<{}>;
 
   constructor(
     private alertService: JhiAlertService,
