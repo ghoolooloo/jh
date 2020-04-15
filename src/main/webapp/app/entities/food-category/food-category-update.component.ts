@@ -22,7 +22,7 @@ export class FoodCategoryUpdateComponent implements OnInit {
     name: [null, [Validators.required, Validators.maxLength(10)]],
     sn: [null, [Validators.required, Validators.maxLength(10)]],
     icon: [null, [Validators.maxLength(30)]],
-    sort: [null, [Validators.required, Validators.min(0), Validators.max(999999999)]],
+    sort: [null, [Validators.required, Validators.min(0), Validators.max(999999999), Validators.pattern('^[+-]?\\d+$')]],
     createdBy: [null, [Validators.required, Validators.maxLength(20)]],
     createdDate: [null, [Validators.required]],
     lastModifiedDate: [],

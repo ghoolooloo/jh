@@ -58,10 +58,10 @@
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="jhApp.foodCategory.sort" for="field_sort" [ngbTooltip]="'jhApp.foodCategory.help.sort' | translate">Sort</label>
                     <input type="number" class="form-control" name="sort" id="field_sort"
-                           formControlName="sort"/>
+                           formControlName="sort" #input_sort />{{'=============================='+input_sort.validity.badInput}}
                     <div *ngIf="editForm.get('sort')!.invalid && (editForm.get('sort')!.dirty || editForm.get('sort')!.touched)">
                         <small class="form-text text-danger"
-                               *ngIf="editForm.get('sort')?.errors?.required" jhiTranslate="entity.validation.required">
+                               *ngIf="editForm.get('sort')?.errors?.required && !input_sort.validity.badInput" jhiTranslate="entity.validation.required">
                         This field is required.
                         </small>
                         <small class="form-text text-danger"
@@ -73,8 +73,12 @@
                             This field cannot be more than 999999999.
                         </small>
                         <small class="form-text text-danger"
-                            [hidden]="!editForm.get('sort')?.errors?.number" jhiTranslate="entity.validation.number">
+                            [hidden]="!editForm.get('sort')?.errors?.number && !input_sort.validity.badInput" jhiTranslate="entity.validation.number">
                             This field should be a number.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('sort')?.errors?.pattern" jhiTranslate="entity.validation.pattern" [translateValues]="{ pattern: '整数，例如：9999' }">
+                            This field should follow pattern for "Sort".
                         </small>
                     </div>
                 </div>
