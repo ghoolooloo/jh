@@ -128,9 +128,6 @@ export class AlertErrorComponent implements OnDestroy {
     };
 
     this.alerts.push(this.alertService.addAlert(newAlert, this.alerts));
-    this.notificationService.config({
-      nzPlacement: 'bottomRight'
-    });
-    this.notificationService.template(this.template, { nzData: this.alerts });
+    this.notificationService.template(this.template, { nzData: this.alerts, nzPosition: 'bottomRight' });
   }
 }
