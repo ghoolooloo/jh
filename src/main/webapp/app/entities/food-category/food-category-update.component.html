@@ -45,12 +45,24 @@
 
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="jhApp.foodCategory.icon" for="field_icon" [ngbTooltip]="'jhApp.foodCategory.help.icon' | translate">Icon</label>
-                    <input type="text" class="form-control" name="icon" id="field_icon"
-                           formControlName="icon"/>
-                    <div *ngIf="editForm.get('icon')!.invalid && (editForm.get('icon')!.dirty || editForm.get('icon')!.touched)">
+                    <nz-upload [nzShowUploadList]="false" [nzBeforeUpload]="beforeUpload" nzAccept="image/png, image/jpeg">
+                        <button type="button" class="btn btn-outline-secondary"><fa-icon icon="upload"></fa-icon><span> 上传图片</span></button>
+                    </nz-upload>
+                    <div>
+                        <img *ngIf="img" [src]="img" />
+                    </div>
+                    <div *ngIf="!isLt2M || !isLt123x124 || !isLtPngOrJpeg">
                         <small class="form-text text-danger"
-                               *ngIf="editForm.get('icon')?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 30 }">
-                        This field cannot be longer than 30 characters.
+                               *ngIf="!isLtPngOrJpeg">
+                        图片必须是PNG、JPG、JPEG类型
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="!isLt2M">
+                        图片大小超过了2M
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="!isLt123x124">
+                        图片尺寸必须是124*124
                         </small>
                     </div>
                 </div>
@@ -58,7 +70,7 @@
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="jhApp.foodCategory.sort" for="field_sort" [ngbTooltip]="'jhApp.foodCategory.help.sort' | translate">Sort</label>
                     <input type="number" class="form-control" name="sort" id="field_sort"
-                           formControlName="sort" #input_sort />{{'=============================='+input_sort.validity.badInput}}
+                           formControlName="sort" #input_sort />
                     <div *ngIf="editForm.get('sort')!.invalid && (editForm.get('sort')!.dirty || editForm.get('sort')!.touched)">
                         <small class="form-text text-danger"
                                *ngIf="editForm.get('sort')?.errors?.required && !input_sort.validity.badInput" jhiTranslate="entity.validation.required">

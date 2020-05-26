@@ -9,6 +9,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 import { NzMessageModule } from 'ng-zorro-antd/message';
 import { NzNotificationModule } from 'ng-zorro-antd/notification';
+import { NzSpinModule } from 'ng-zorro-antd/spin';
 
 @NgModule({
   exports: [
@@ -22,7 +23,8 @@ import { NzNotificationModule } from 'ng-zorro-antd/notification';
     TranslateModule,
     NzPopconfirmModule,
     NzMessageModule,
-    NzNotificationModule
+    NzNotificationModule,
+    NzSpinModule
   ]
 })
 export class JhSharedLibsModule {}
