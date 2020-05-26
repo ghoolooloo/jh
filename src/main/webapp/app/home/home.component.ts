@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { LoginModalService } from 'app/core/login/login-modal.service';
 import { AccountService } from 'app/core/auth/account.service';
 import { Account } from 'app/core/user/account.model';
+import * as FileSaver from 'file-saver';
 
 @Component({
   selector: 'jhi-home',
@@ -32,5 +33,10 @@ export class HomeComponent implements OnInit, OnDestroy {
     if (this.authSubscription) {
       this.authSubscription.unsubscribe();
     }
+  }
+
+  export(): void {
+    const blob = new Blob(['Hello, world!'], { type: 'text/plain;charset=utf-8' });
+    FileSaver.saveAs(blob, 'hello.txt');
   }
 }

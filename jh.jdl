@@ -2,26 +2,48 @@ SORT_MIN = 0
 SORT_MAX = 999999999
 USER_MAXLENGTH = 20
 URL_MAXLENGTH = 200
-AMOUNT_MAX = 999999
-DESC_MAXLENGTH = 300
-TEL_MAXLENGTH = 20
+AMOUNT_MAX = 99999
+QUANTITY_MAX = 99999
+DESC_MAXLENGTH = 100
+TEL_MAXLENGTH = 13
+MOBILE_MAXLENGTH = 11
+EMAIL_MAXLENGTH = 40
 ADDRESS_MAXLENGTH = 50
 AREA_MAXLENGTH = 20
 TIME_MAXLENGTH = 8
+CATEGORY_SN = 5
+CATEGORY_NAME = 10
+FOOD_SN = 10
+FOOD_NAME = 20
+SHOP_SN_MAXLENGTH = 30
+SHOP_NAME_MAXLENGTH = 20
+MEMBER_SN_MAXLENGTH = 20
+ORDER_SN_MAXLENGTH = 20
+ORDER_REMARK_MAXLENGTH = 30
+CARD_SN_MAXLENGTH = 20
+CARD_TITLE_MAXLENGTH = 100
+CARD_QUANTITY_MAX = 999999999
+CARD_DESC_MAXLENGTH = 300
+CARD_CODE_MAXLENGTH = 40
+CARDS_MAXLENGTH = 300
+DELIVERY_NO_MAXLENGTH = 32
+DELIVERY_DESC_MAXLENGTH = 50
+
 
 /**
  * 菜品分类
  * @author Jo
  */
 entity FoodCategory {
-  name String required maxlength(10)
-  sn String required unique maxlength(10) /** 编号 */
-  icon String maxlength(30) /** 图标 */
-  sort Integer required min(SORT_MIN) max(SORT_MAX) /** 序号 */
-  createdBy String required maxlength(USER_MAXLENGTH) /** 创建者登录账号 */
-  createdDate Instant required
-  lastModifiedDate Instant
-  lastModifiedBy String maxlength(USER_MAXLENGTH) /** 最后修改者登录账号 */
+    name String required maxlength(CATEGORY_NAME)
+    sn String required unique maxlength(CATEGORY_SN) /** 编号 */
+    icon String maxlength(URL_MAXLENGTH) /** 图标 */
+    sort Integer required min(SORT_MIN) max(SORT_MAX) /** 序号 */
+    disabled Boolean /** 是否禁用。禁用分类会禁用所属的菜品，启用分类也会启用所属的菜品 */
+    createdBy String required maxlength(USER_MAXLENGTH) /** 创建者登录账号 */
+    createdDate Instant required
+    lastModifiedDate Instant
+    lastModifiedBy String maxlength(USER_MAXLENGTH) /** 最后修改者登录账号 */
 }
 
 /**
@@ -29,21 +51,22 @@ entity FoodCategory {
  * @author Jo
  */
 entity Food {
-  name String required maxlength(20)
-  sn String required unique maxlength(10) /** 编号 */
-  thumbnail String maxlength(URL_MAXLENGTH) /** 缩略图 */
-  picture String maxlength(URL_MAXLENGTH) /** 大图 */
-  price Integer required min(0) max(AMOUNT_MAX) /** 售价（单位：分） */
-  originalPrice Integer min(0) max(AMOUNT_MAX) /** 原价（单位：分） */
-  cost Integer min(0) max(AMOUNT_MAX) /** 成本（单位：分） */
-  packingFee Integer min(0) max(AMOUNT_MAX) /** 包装费（单位：分） */
-  desc String maxlength(DESC_MAXLENGTH) /** 描述 */
-  sort Integer required min(SORT_MIN) max(SORT_MAX) /** 序号 */
-  feedingMode FeedingMode required  /** 供餐方式 */
-  createdBy String required maxlength(USER_MAXLENGTH)
-  createdDate Instant required
-  lastModifiedDate Instant
-  lastModifiedBy String maxlength(USER_MAXLENGTH)
+    name String required maxlength(FOOD_NAME)
+    sn String required unique maxlength(FOOD_SN) /** 编号 */
+    thumbnail String maxlength(URL_MAXLENGTH) /** 缩略图 */
+    picture String maxlength(URL_MAXLENGTH) /** 大图 */
+    price Integer required min(0) max(AMOUNT_MAX) /** 售价（单位：分） */
+    originalPrice Integer min(0) max(AMOUNT_MAX) /** 原价（单位：分）。原价要么为空，要么大于售价。原价为空时，是普通菜品；原价不为空且原价大于售价时，是特惠菜品 */
+    cost Integer min(0) max(AMOUNT_MAX) /** 成本（单位：分） */
+    packingFee Integer min(0) max(AMOUNT_MAX) /** 包装费（单位：分） */
+    desc String maxlength(DESC_MAXLENGTH) /** 描述 */
+    sort Integer required min(SORT_MIN) max(SORT_MAX) /** 序号 */
+    feedingMode FeedingMode required  /** 供餐方式 */
+    disabled Boolean /** 是否禁用。已禁用的菜品要从一周菜单中删除 */
+    createdBy String required maxlength(USER_MAXLENGTH)
+    createdDate Instant required
+    lastModifiedDate Instant
+    lastModifiedBy String maxlength(USER_MAXLENGTH)
 }
 
 /**
@@ -52,7 +75,7 @@ entity Food {
  * @author Jo
  */
 enum FeedingMode {
-  DINNER, DESSERT
+    DINNER, DESSERT
 }
 
 /**
@@ -60,10 +83,10 @@ enum FeedingMode {
  * @author Jo
  */
 entity WeekMenu {
-  week Week required
-  sort Integer required min(SORT_MIN) max(SORT_MAX) /** 菜品在所在天的顺序 */
-  lastModifiedDate Instant required
-  lastModifiedBy String required maxlength(USER_MAXLENGTH)
+    week Week required
+    sort Integer required min(SORT_MIN) max(SORT_MAX) /** 菜品在所在天的顺序 */
+    lastModifiedDate Instant required
+    lastModifiedBy String required maxlength(USER_MAXLENGTH)
 }
 
 /**
@@ -71,9 +94,9 @@ entity WeekMenu {
  * @author Jo
  */
 entity WeekStock {
-  shopSN String required maxlength(30) /** 门店编号 */
-  shopName String required maxlength(20) /** 门店名称 */
-  foodQuantity Integer required min(0) max(99999) /** 菜品数量。售出超过这个数量时，将显示“已售完”（不是下架！） */
+    shopSN String required maxlength(SHOP_SN_MAXLENGTH) /** 门店编号 */
+    shopName String required maxlength(SHOP_NAME_MAXLENGTH) /** 门店名称 */
+    foodQuantity Integer required min(0) max(QUANTITY_MAX) /** 菜品预设库存量。售出超过这个数量时，将显示“已售完”（不是下架！） */
 }
 
 /**
@@ -81,7 +104,7 @@ entity WeekStock {
  * @author Jo
  */
 enum Week {
-  SUNDAY, MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY
+    SUNDAY, MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY
 }
 
 /**
@@ -89,49 +112,695 @@ enum Week {
  * @author Jo
  */
 entity Shop {
-  name String required maxlength(20) /** 门店名称 */
-  sn String required unique maxlength(30) /** 门店编号，即微信门店的poi_id */
-  tel String maxlength(TEL_MAXLENGTH) /** 联系电话 */
-  address String maxlength(ADDRESS_MAXLENGTH) /** 详细地址（不含省市信息） */
-  province String required maxlength(AREA_MAXLENGTH) /** 省、直辖市、自治区 */
-  city String required maxlength(AREA_MAXLENGTH) /** 城市 */
-  district String maxlength(AREA_MAXLENGTH) /** 地区 */
-  offsetType OffsetType required /** 坐标类型。由于门店来自微信，因此这里坐标类型固定为 MARS */
-  longitude Double required /** 经度 */
-  latitude Double required  /** 纬度 */
-  shopOpen String maxlength(TIME_MAXLENGTH) /** 开始营业时间。格式：05:00、19:00 */
-  shopClose String maxlength(TIME_MAXLENGTH) /** 结束营业时间。格式：05:00、19:00 */
-  maxDeliveryDistance Integer min(0) max(50) /** 最大配送距离（相对于最近门店），单位：公里 */
-  minDeliveryAmount Integer min(0) max(AMOUNT_MAX)  /** 起送金额（单位：分）。是限制订单的priceTotal字段的最小值，低于这个值的订单不外送。自助订单不受此限制！ */
-  lunchServeStartingAt String maxlength(TIME_MAXLENGTH)  /** 正餐午餐供餐起始时间。格式：05:00、19:00 */
-  lunchServeEndAt String maxlength(TIME_MAXLENGTH)  /** 正餐午餐供餐结束时间。格式：05:00、19:00 */
-  supperServeStartingAt String maxlength(TIME_MAXLENGTH)  /** 正餐晚餐配供餐始时间。格式：05:00、19:00 */
-  supperServeEndAt String maxlength(TIME_MAXLENGTH)  /** 正餐晚餐供餐结束时间。格式：05:00、19:00 */
-  createdBy String required maxlength(USER_MAXLENGTH)
-  createdDate Instant required
-  lastModifiedDate Instant
-  lastModifiedBy String maxlength(USER_MAXLENGTH)
+    name String required maxlength(SHOP_NAME_MAXLENGTH) /** 门店名称 */
+    sn String required unique maxlength(SHOP_SN_MAXLENGTH) /** 门店编号，即微信门店的poi_id */
+    tel String maxlength(TEL_MAXLENGTH) /** 联系电话 */
+    address String maxlength(ADDRESS_MAXLENGTH) /** 详细地址（不含省市信息） */
+    country String maxlength(AREA_MAXLENGTH) /** 国家 */
+    province String required maxlength(AREA_MAXLENGTH) /** 省、直辖市、自治区 */
+    city String required maxlength(AREA_MAXLENGTH) /** 城市 */
+    district String maxlength(AREA_MAXLENGTH) /** 地区 */
+    offsetType OffsetType required /** 坐标类型。由于门店来自微信，因此这里坐标类型固定为 MARS */
+    longitude Double required /** 经度 */
+    latitude Double required  /** 纬度 */
+    shopOpen String maxlength(TIME_MAXLENGTH) /** 开始营业时间。格式：05:00、19:00 */
+    shopClose String maxlength(TIME_MAXLENGTH) /** 结束营业时间。格式：05:00、19:00 */
+    maxDeliveryDistance Integer min(0) max(50) /** 最大配送距离（相对于最近门店），单位：公里 */
+    minDeliveryAmount Integer min(0) max(AMOUNT_MAX)  /** 起送金额（单位：分）。是限制订单的priceTotal字段的最小值，低于这个值的订单不外送。自助订单不受此限制！ */
+    lunchServeStartingAt String maxlength(TIME_MAXLENGTH)  /** 正餐午餐供餐起始时间。格式：05:00、19:00 */
+    lunchServeEndAt String maxlength(TIME_MAXLENGTH)  /** 正餐午餐供餐结束时间。格式：05:00、19:00 */
+    supperServeStartingAt String maxlength(TIME_MAXLENGTH)  /** 正餐晚餐配供餐始时间。格式：05:00、19:00 */
+    supperServeEndAt String maxlength(TIME_MAXLENGTH)  /** 正餐晚餐供餐结束时间。格式：05:00、19:00 */
+    createdBy String required maxlength(USER_MAXLENGTH)
+    createdDate Instant required
+    lastModifiedDate Instant
+    lastModifiedBy String maxlength(USER_MAXLENGTH)
 }
-
 /**
  * 坐标类型
  * MARS：火星坐标（腾讯搜搜地图、高德地图、阿里云地图），SOGOU：搜狗坐标，BAIDU：百度坐标，MAPBAR：图吧坐标，GPS，MERCATOR：墨卡托坐标
  * @author Jo
  */
 enum OffsetType {
-  MARS, SOGOU, BAIDU, MAPBAR, GPS, MERCATOR
+    MARS, SOGOU, BAIDU, MAPBAR, GPS, MERCATOR
+}
+
+/**
+ * 商户
+ * @author Jo
+ */
+entity Merchant {
+    name String required maxlength(20)  /** 商户名称 */
+    logo String maxlength(URL_MAXLENGTH)
+    tel String maxlength(TEL_MAXLENGTH) /** 客服电话 */
+    email String maxlength(EMAIL_MAXLENGTH) pattern(/^[\w-]+@[\w-]+(\.[\w-]+)+$/)
+    website String maxlength(URL_MAXLENGTH)
+    icp String maxlength(20) /** ICP许可证 */
+    createdBy String required maxlength(USER_MAXLENGTH)
+    createdDate Instant required
+    lastModifiedDate Instant
+    lastModifiedBy String maxlength(USER_MAXLENGTH)
+}
+
+/**
+ * 会员
+ * @author Jo
+ */
+entity Member {
+    name String required maxlength(USER_MAXLENGTH) /** 会员名称 */
+    sn String required unique maxlength(MEMBER_SN_MAXLENGTH) /** 会员编号。会员编号取自入会时间，生成格式：四位年数字+两位月份数字+两位日数字+两位小时数（24小时制）+两位分钟数+两位秒数+三位毫秒数 */
+    openID String maxlength(32) /** 微信会员Openid */
+    unionID String maxlength(32) /** 微信会员Unionid */
+    profilePicture String maxlength(URL_MAXLENGTH) /** 头像 */
+    sex Sex /** 会员性别 */
+    country  String maxlength(AREA_MAXLENGTH) /** 国家 */
+    province String maxlength(AREA_MAXLENGTH) /** 省、直辖市、自治区 */
+    city String maxlength(AREA_MAXLENGTH) /** 城市 */
+    joinDate Instant required /** 入会时间 */
+    lastLoginDate Instant /** 最近登入时间 */
+}
+
+/**
+ * 性别
+ * @author Jo
+ */
+enum Sex {
+    UNKNOWN, MAN, WOMAN
+}
+
+/**
+ * 送餐地址
+ * @author Jo
+ */
+entity DeliveryAddress {
+    memberName String required maxlength(USER_MAXLENGTH) /** 会员名称 */
+    memberSN String required maxlength(MEMBER_SN_MAXLENGTH) /** 会员编号 */
+    contact String required maxlength(USER_MAXLENGTH) /** 联系人 */
+    sex Sex /** 性别 */
+    mobile String maxlength(MOBILE_MAXLENGTH) /** 手机 */
+    country String maxlength(AREA_MAXLENGTH) /** 国家 */
+    province String required maxlength(AREA_MAXLENGTH) /** 省、直辖市、自治区 */
+    city String required maxlength(AREA_MAXLENGTH) /** 城市 */
+    district String maxlength(AREA_MAXLENGTH) /** 地区 */
+    offsetType OffsetType required /** 坐标类型 */
+    longitude Double required /** 经度 */
+    latitude Double required  /** 纬度 */
+    address String maxlength(ADDRESS_MAXLENGTH) /** 详细地址（不含省市信息） */
+}
+
+/**
+ * 订单
+ * 订单编号取至生成时的时间，格式：一个大写字母的订单类型标志+四位年数字+两位月份数字+两位日数字+两位小时数（24小时制）+四位顺序号。该顺序号就是取餐号。
+ * 订单类型标志：T（外卖）、P（打包）、F（堂食）。
+ * 这里的外送费只是商户要向顾客收取的外送费（可以查询某家配送平台的费用为基准），并不一定是商户最终支付给配送方的费用。因为，配送方是要到接单后才确定的，而且商户也有可能自己配送。
+ * 已支付的订单将在向配送平台发送配送请求后，变成配送订单。
+ * @author Jo
+ */
+entity Order {
+    sn String required unique maxlength(ORDER_SN_MAXLENGTH) /** 订单编号 */
+    memberName String required maxlength(USER_MAXLENGTH) /** 会员名称 */
+    memberSN String required maxlength(MEMBER_SN_MAXLENGTH) /** 会员编号 */
+    orderType OrderType required  /** 订单类型 */
+    shopSN String required maxlength(SHOP_SN_MAXLENGTH) /** 门店编号 */
+    shopName String required maxlength(SHOP_NAME_MAXLENGTH) /** 门店名称 */
+    priceTotal Integer required min(0) /** 菜品总金额（折扣前），单位：分 */
+    cardReduce Integer  /** 代金券或折扣券减免或折扣的金额，单位：分 */
+    cards String maxlength(CARDS_MAXLENGTH) /** 该订单使用的卡券code列表，code之间用逗号分隔 */
+    rewardPointsReduce Integer  /** 积分抵扣金额，单位：分 */
+    paymentTotal Integer required min(0) /** 支付总金额（包含打折后的实际金额和各种费用），单位：分 */
+    distributionPlatform DistributionPlatform /** 配送平台 */
+    deliveryNo String maxlength(DELIVERY_NO_MAXLENGTH) /** 配送单号 */
+    deliveryFee Integer /** 外送费 */
+    contact String maxlength(USER_MAXLENGTH) /** 联系人 */
+    sex Sex /** 联系人性别 */
+    mobile String maxlength(MOBILE_MAXLENGTH) /** 联系人手机，也是自助中的预留手机 */
+    country String maxlength(AREA_MAXLENGTH) /** 国家 */
+    province String maxlength(AREA_MAXLENGTH) /** 省、直辖市、自治区 */
+    city String maxlength(AREA_MAXLENGTH) /** 城市 */
+    district String maxlength(AREA_MAXLENGTH) /** 地区 */
+    offsetType OffsetType /** 坐标类型 */
+    longitude Double /** 经度 */
+    latitude Double  /** 纬度 */
+    address String maxlength(ADDRESS_MAXLENGTH) /** 详细地址（不含省市信息） */
+    packingFee Integer /** 包装费 */
+    paymentMode PaymentMethod required /** 支付方式 */
+    diningDate Instant required /** 预计送达时间或自取时间 */
+    remark String maxlength(ORDER_REMARK_MAXLENGTH) /** 备注 */
+    status OrderStatus required /** 订单状态：NEW（待支付）、EXPIRED（已失效未支付）、PAID（已支付） */
+    createdDate Instant required /** 订单创建时间 */
+    paidDate Instant /** 支付时间 */
+    expiredDate Instant /** 失效时间 */
+}
+
+/**
+ * 订单类型
+ * TOGO：外卖，PACK：打包，FORHERE：堂食
+ * @author Jo
+ */
+enum OrderType {
+    TOGO, PACK, FORHERE
+}
+
+/**
+ * 订单状态
+ * NEW：待支付，EXPIRED：已失效未支付，PAID：已支付，DELIVERING：配送中，COMPLETED：配送完成或自助取餐完成，REFUNDING：申请退款，REFUNDED：完成退款批准（包括同意和拒绝），CLOSED：正常完结（配送完成或自助取餐完成，且未申请退款）
+ * 订单已失效但未支付的，先在每两分钟的调试器中将它的状态设置为EXPIRED。然后，在晚上处理订单归档的调度器中，再将这些EXPIRED订单归档。这样做可以避免订单被失效后，又支付成功的情况。
+ * 只有EXPIRED（已失效未支付）、REFUNDED（完成退款批准）和CLOSED（正常完结）是订单的结束状态。
+ * 退款包含全额退款（paymentTotal == refundAmount）和部分退款（paymentTotal > refundAmount）两种。
+ * 待支付订单有效期暂定为订单创建后10分钟内，因此需要定时（例如每分钟）检查。
+ * @author Jo
+ */
+enum OrderStatus {
+    NEW, PAID, EXPIRED, DELIVERING, COMPLETED, REFUNDING, REFUNDED, CLOSED
+}
+
+/**
+ * 支付方式
+ * @author Jo
+ */
+enum PaymentMethod {
+    WX, ALIPAY
+}
+
+/**
+ * 订单项
+ * 要对该表做分区处理。
+ * @author Jo
+ */
+entity OrderItem {
+    orderSN String required unique maxlength(ORDER_SN_MAXLENGTH) /** 订单编号 */
+    foodCategoryName String required maxlength(CATEGORY_NAME) /** 菜品分类名称 */
+    foodCategorySN String required maxlength(CATEGORY_SN) /** 菜品分类编号 */
+    foodName String required maxlength(FOOD_NAME) /** 菜品名称 */
+    foodSN String required maxlength(FOOD_SN) /** 菜品编号 */
+    foodThumbnail String maxlength(URL_MAXLENGTH) /** 菜品缩略图 */
+    foodPicture String maxlength(URL_MAXLENGTH) /** 菜品大图 */
+    price Integer required min(0) max(AMOUNT_MAX) /** 售价（单位：分） */
+    originalPrice Integer min(0) max(AMOUNT_MAX) /** 原价（单位：分）。原价要么为空，要么大于等于售价。原价为空或等于售价时，是普通菜品；原价不为空且原价大于售价时，是特惠菜品 */
+    cost Integer min(0) max(AMOUNT_MAX) /** 成本（单位：分） */
+    packingFee Integer min(0) max(AMOUNT_MAX) /** 包装费（单位：分） */
+    desc String maxlength(DESC_MAXLENGTH) /** 描述 */
+    quantity Integer required min(1) /** 数量 */
+    coupon String maxlength(32) /** 兑换券的code。该字段不为空，表示这是一个兑换商品 */
+}
+
+/**
+ * 配送订单
+ * 配送状态：待接单＝1 待取货＝2 配送中＝3 已完成＝4 配送员取消＝51 商户取消=52 配送平台系统或客服取消=53 其他取消=50 已过期＝7 指派单=8 妥投异常之物品返回中=9 妥投异常之物品返回完成=10 骑士到店=100 系统故障订单发布失败=1000
+ * 配送完成的订单要么由调度器定时转变为已完结订单，要么通过申请退款转变为退款订单。
+ * @author Jo
+ */
+entity DeliveryOrder {
+    sn String required maxlength(ORDER_SN_MAXLENGTH) /** 订单编号 */
+    memberName String required maxlength(USER_MAXLENGTH) /** 会员名称 */
+    memberSN String required maxlength(MEMBER_SN_MAXLENGTH) /** 会员编号 */
+    orderType OrderType required  /** 订单类型 */
+    shopSN String required maxlength(SHOP_SN_MAXLENGTH) /** 门店编号 */
+    shopName String required maxlength(SHOP_NAME_MAXLENGTH) /** 门店名称 */
+    priceTotal Integer required min(0) /** 菜品总金额（折扣前），单位：分 */
+    cardReduce Integer  /** 代金券或折扣券减免或折扣的金额，单位：分 */
+    cards String maxlength(CARDS_MAXLENGTH) /** 该订单使用的卡券code列表，code之间用逗号分隔 */
+    rewardPointsReduce Integer  /** 积分抵扣金额，单位：分 */
+    paymentTotal Integer required min(0) /** 支付总金额（包含打折后的实际金额和各种费用），单位：分 */
+    distributionPlatform DistributionPlatform /** 配送平台 */
+    deliveryNo String maxlength(DELIVERY_NO_MAXLENGTH) /** 配送单号 */
+    deliveryStatus Integer  /** 配送状态（由配送平台提供，以达达为例）：1-4、8 */
+    deliveryDesc String maxlength(DELIVERY_DESC_MAXLENGTH) /** 配送说明 */
+    deliverier String maxlength(USER_MAXLENGTH) /** 配送员 */
+    deliverierMobile String maxlength(MOBILE_MAXLENGTH) /** 配送员手机 */
+    deliveryDeductFee Integer  /** 配送违约金，单位：分。达达规定：接单后1－15分钟内取消订单，运费退回。同时扣除2元作为给配送员的违约金 */
+    deliveryFee Integer /** 外送费 */
+    contact String maxlength(USER_MAXLENGTH) /** 联系人 */
+    sex Sex /** 联系人性别 */
+    mobile String maxlength(MOBILE_MAXLENGTH) /** 联系人手机，也是自助中的预留手机 */
+    country String maxlength(AREA_MAXLENGTH) /** 国家 */
+    province String maxlength(AREA_MAXLENGTH) /** 省、直辖市、自治区 */
+    city String maxlength(AREA_MAXLENGTH) /** 城市 */
+    district String maxlength(AREA_MAXLENGTH) /** 地区 */
+    offsetType OffsetType /** 坐标类型 */
+    longitude Double /** 经度 */
+    latitude Double  /** 纬度 */
+    address String maxlength(ADDRESS_MAXLENGTH) /** 详细地址（不含省市信息） */
+    packingFee Integer /** 包装费 */
+    paymentMode PaymentMethod required /** 支付方式 */
+    diningDate Instant required /** 预计送达时间或自取时间 */
+    remark String maxlength(ORDER_REMARK_MAXLENGTH) /** 备注 */
+    status OrderStatus required /** 订单状态：DELIVERING（配送中）、COMPLETED（配送完成或自助取餐完成） */
+    createdDate Instant required /** 订单创建时间 */
+    paidDate Instant /** 支付时间 */
+    completedDate Instant /** 配送完成时间 */
+    lastModifiedDate Instant /** 最近修改时间 */
+}
+
+/**
+ * 配送平台
+ * MERCHANT：商家配送，DADA：达达
+ * @author Jo
+ */
+enum DistributionPlatform {
+  MERCHANT, DADA
+}
+
+/**
+ * 异常订单
+ * 配送状态：待接单＝1 待取货＝2 配送中＝3 已完成＝4 配送员取消＝51 商户取消=52 配送平台系统或客服取消=53 其他取消=50 已过期＝7 指派单=8 妥投异常之物品返回中=9 妥投异常之物品返回完成=10 骑士到店=100 系统故障订单发布失败=1000
+ * @author Jo
+ */
+entity ExceptionOrder {
+    sn String required maxlength(ORDER_SN_MAXLENGTH) /** 订单编号 */
+    memberName String required maxlength(USER_MAXLENGTH) /** 会员名称 */
+    memberSN String required maxlength(MEMBER_SN_MAXLENGTH) /** 会员编号 */
+    orderType OrderType required  /** 订单类型 */
+    shopSN String required maxlength(SHOP_SN_MAXLENGTH) /** 门店编号 */
+    shopName String required maxlength(SHOP_NAME_MAXLENGTH) /** 门店名称 */
+    priceTotal Integer required min(0) /** 菜品总金额（折扣前），单位：分 */
+    cardReduce Integer  /** 代金券或折扣券减免或折扣的金额，单位：分 */
+    cards String maxlength(CARDS_MAXLENGTH) /** 该订单使用的卡券code列表，code之间用逗号分隔 */
+    rewardPointsReduce Integer  /** 积分抵扣金额，单位：分 */
+    paymentTotal Integer required min(0) /** 支付总金额（包含打折后的实际金额和各种费用），单位：分 */
+    distributionPlatform DistributionPlatform /** 配送平台 */
+    deliveryNo String maxlength(DELIVERY_NO_MAXLENGTH) /** 配送单号 */
+    deliveryStatus Integer  /** 配送状态（由配送平台提供，以达达为例）：5、7、9、10、1000 */
+    deliveryDesc String maxlength(DELIVERY_DESC_MAXLENGTH) /** 配送说明 */
+    deliverier String maxlength(USER_MAXLENGTH) /** 配送员 */
+    deliverierMobile String maxlength(MOBILE_MAXLENGTH) /** 配送员手机 */
+    deliveryDeductFee Integer  /** 配送违约金，单位：分 */
+    deliveryFee Integer /** 外送费 */
+    contact String maxlength(USER_MAXLENGTH) /** 联系人 */
+    sex Sex /** 联系人性别 */
+    mobile String maxlength(MOBILE_MAXLENGTH) /** 联系人手机，也是自助中的预留手机 */
+    country String maxlength(AREA_MAXLENGTH) /** 国家 */
+    province String maxlength(AREA_MAXLENGTH) /** 省、直辖市、自治区 */
+    city String maxlength(AREA_MAXLENGTH) /** 城市 */
+    district String maxlength(AREA_MAXLENGTH) /** 地区 */
+    offsetType OffsetType /** 坐标类型 */
+    longitude Double /** 经度 */
+    latitude Double  /** 纬度 */
+    address String maxlength(ADDRESS_MAXLENGTH) /** 详细地址（不含省市信息） */
+    packingFee Integer /** 包装费 */
+    paymentMode PaymentMethod required /** 支付方式 */
+    diningDate Instant required /** 预计送达时间或自取时间 */
+    remark String maxlength(ORDER_REMARK_MAXLENGTH) /** 备注 */
+    status OrderStatus required /** 订单状态：DELIVERING（配送中） */
+    createdDate Instant required /** 订单创建时间 */
+    paidDate Instant /** 支付时间 */
+    exceptionDate Instant /** 异常时间 */
+    handler String required maxlength(USER_MAXLENGTH) /** 处理人 */
+    handledDate Instant /** 处理时间 */
+    handledDesc String maxlength(DESC_MAXLENGTH) /** 处理描述 */
+}
+
+/**
+ * 退款单
+ * 每个订单只能申请一次退款。
+ * 完成退款批准后，退款单将转化为已完结订单。
+ * @author Jo
+ */
+entity RefundOrder {
+    sn String required maxlength(ORDER_SN_MAXLENGTH) /** 订单编号 */
+    memberName String required maxlength(USER_MAXLENGTH) /** 会员名称 */
+    memberSN String required maxlength(MEMBER_SN_MAXLENGTH) /** 会员编号 */
+    orderType OrderType required  /** 订单类型 */
+    shopSN String required maxlength(SHOP_SN_MAXLENGTH) /** 门店编号 */
+    shopName String required maxlength(SHOP_NAME_MAXLENGTH) /** 门店名称 */
+    priceTotal Integer required min(0) /** 菜品总金额（折扣前），单位：分 */
+    cardReduce Integer  /** 代金券或折扣券减免或折扣的金额，单位：分 */
+    cards String maxlength(CARDS_MAXLENGTH) /** 该订单使用的卡券code列表，code之间用逗号分隔 */
+    rewardPointsReduce Integer  /** 积分抵扣金额，单位：分 */
+    paymentTotal Integer required min(0) /** 支付总金额（包含打折后的实际金额和各种费用），单位：分 */
+    distributionPlatform DistributionPlatform /** 配送平台 */
+    deliveryNo String maxlength(DELIVERY_NO_MAXLENGTH) /** 配送单号 */
+    deliveryStatus Integer  /** 配送状态（由配送平台提供，以达达为例）：5、7、9、10、1000 */
+    deliveryDesc String maxlength(DELIVERY_DESC_MAXLENGTH) /** 配送说明 */
+    deliverier String maxlength(USER_MAXLENGTH) /** 配送员 */
+    deliverierMobile String maxlength(MOBILE_MAXLENGTH) /** 配送员手机 */
+    deliveryDeductFee Integer  /** 配送违约金，单位：分 */
+    deliveryFee Integer /** 外送费 */
+    contact String maxlength(USER_MAXLENGTH) /** 联系人 */
+    sex Sex /** 联系人性别 */
+    mobile String maxlength(MOBILE_MAXLENGTH) /** 联系人手机，也是自助中的预留手机 */
+    country String maxlength(AREA_MAXLENGTH) /** 国家 */
+    province String maxlength(AREA_MAXLENGTH) /** 省、直辖市、自治区 */
+    city String maxlength(AREA_MAXLENGTH) /** 城市 */
+    district String maxlength(AREA_MAXLENGTH) /** 地区 */
+    offsetType OffsetType /** 坐标类型 */
+    longitude Double /** 经度 */
+    latitude Double  /** 纬度 */
+    address String maxlength(ADDRESS_MAXLENGTH) /** 详细地址（不含省市信息） */
+    packingFee Integer /** 包装费 */
+    paymentMode PaymentMethod required /** 支付方式 */
+    diningDate Instant required /** 预计送达时间或自取时间 */
+    remark String maxlength(ORDER_REMARK_MAXLENGTH) /** 备注 */
+    status OrderStatus required /** 订单状态：REFUNDING（申请退款）、REFUNDED（完成退款批准） */
+    createdDate Instant required /** 订单创建时间 */
+    paidDate Instant /** 支付时间 */
+    completedDate Instant /** 配送完成时间 */
+    exceptionDate Instant /** 异常时间 */
+    handler String required maxlength(USER_MAXLENGTH) /** 处理人 */
+    handledDate Instant /** 处理时间 */
+    handledDesc String maxlength(DESC_MAXLENGTH) /** 处理描述 */
+    applicant String required maxlength(USER_MAXLENGTH) /** 申请人 */
+    appliedDate Instant required /** 申请时间 */
+    refundDesc String maxlength(DESC_MAXLENGTH) /** 退款原因描述 */
+    refundedBy String maxlength(USER_MAXLENGTH) /** 批准人 */
+    refundedDate Instant /** 批准时间 */
+    refundAmount Integer min(0) max(AMOUNT_MAX) /** 退款金额，单位：分 */
+    reply String maxlength(DESC_MAXLENGTH) /** 退款答复 */
+    passed Boolean /** 是否退款。true：同意退款，false：拒绝退款，空：申请中 */
+}
+
+/**
+ * 已完结订单
+ * @author Jo
+ */
+entity ClosedOrder {
+    sn String required unique maxlength(ORDER_SN_MAXLENGTH) /** 订单编号 */
+    memberName String required maxlength(USER_MAXLENGTH) /** 会员名称 */
+    memberSN String required maxlength(MEMBER_SN_MAXLENGTH) /** 会员编号 */
+    orderType OrderType required  /** 订单类型 */
+    shopSN String required maxlength(SHOP_SN_MAXLENGTH) /** 门店编号 */
+    shopName String required maxlength(SHOP_NAME_MAXLENGTH) /** 门店名称 */
+    priceTotal Integer required min(0) /** 菜品总金额（折扣前），单位：分 */
+    cardReduce Integer  /** 代金券或折扣券减免或折扣的金额，单位：分 */
+    cards String maxlength(CARDS_MAXLENGTH) /** 该订单使用的卡券code列表，code之间用逗号分隔 */
+    rewardPointsReduce Integer  /** 积分抵扣金额，单位：分 */
+    paymentTotal Integer required min(0) /** 支付总金额（包含打折后的实际金额和各种费用），单位：分 */
+    distributionPlatform DistributionPlatform /** 配送平台 */
+    deliveryNo String maxlength(DELIVERY_NO_MAXLENGTH) /** 配送单号 */
+    deliveryStatus Integer  /** 配送状态（由配送平台提供，以达达为例）：4、5、7、10、1000 */
+    deliveryDesc String maxlength(DELIVERY_DESC_MAXLENGTH) /** 配送说明 */
+    deliverier String maxlength(USER_MAXLENGTH) /** 配送员 */
+    deliverierMobile String maxlength(MOBILE_MAXLENGTH) /** 配送员手机 */
+    deliveryDeductFee Integer  /** 配送违约金，单位：分 */
+    deliveryFee Integer /** 外送费 */
+    contact String maxlength(USER_MAXLENGTH) /** 联系人 */
+    sex Sex /** 联系人性别 */
+    mobile String maxlength(MOBILE_MAXLENGTH) /** 联系人手机，也是自助中的预留手机 */
+    country String maxlength(AREA_MAXLENGTH) /** 国家 */
+    province String maxlength(AREA_MAXLENGTH) /** 省、直辖市、自治区 */
+    city String maxlength(AREA_MAXLENGTH) /** 城市 */
+    district String maxlength(AREA_MAXLENGTH) /** 地区 */
+    offsetType OffsetType /** 坐标类型 */
+    longitude Double /** 经度 */
+    latitude Double  /** 纬度 */
+    address String maxlength(ADDRESS_MAXLENGTH) /** 详细地址（不含省市信息） */
+    packingFee Integer /** 包装费 */
+    paymentMode PaymentMethod required /** 支付方式 */
+    diningDate Instant required /** 预计送达时间或自取时间 */
+    remark String maxlength(ORDER_REMARK_MAXLENGTH) /** 备注 */
+    status OrderStatus required /** 订单状态：EXPIRED（已失效未支付）、REFUNDED（完成退款批准）、CLOSED（正常完结） */
+    createdDate Instant required /** 订单创建时间 */
+    paidDate Instant /** 支付时间 */
+    expiredDate Instant /** 失效时间 */
+    completedDate Instant /** 配送完成时间 */
+    exceptionDate Instant /** 异常时间 */
+    handler String required maxlength(USER_MAXLENGTH) /** 处理人 */
+    handledDate Instant /** 处理时间 */
+    handledDesc String maxlength(DESC_MAXLENGTH) /** 处理描述 */
+    applicant String required maxlength(USER_MAXLENGTH) /** 申请人 */
+    appliedDate Instant required /** 申请时间 */
+    refundDesc String maxlength(DESC_MAXLENGTH) /** 退款原因描述 */
+    refundedBy String maxlength(USER_MAXLENGTH) /** 批准人 */
+    refundedDate Instant /** 批准时间 */
+    refundAmount Integer min(0) max(AMOUNT_MAX) /** 退款金额，单位：分 */
+    reply String maxlength(DESC_MAXLENGTH) /** 退款答复 */
+    passed Boolean /** 是否退款。true：同意退款，false：拒绝退款，空：申请中 */
+}
+
+/**
+ * 菜品销量
+ * @author Jo
+ */
+entity Sales {
+    day Instant required /** 营业日（只有日期，不需要时间） */
+    shopSN String required maxlength(SHOP_SN_MAXLENGTH) /** 门店编号 */
+    shopName String required maxlength(SHOP_NAME_MAXLENGTH) /** 门店名称 */
+    categorySN String required maxlength(CATEGORY_SN) /** 分类编号　*/
+    categoryName String required maxlength(CATEGORY_NAME) /** 分类名称 */
+    foodSN String required maxlength(FOOD_SN) /** 菜品编号 */
+    foodName String required maxlength(FOOD_NAME) /** 菜品名称 */
+    foodOriginalPrice Integer min(0) max(AMOUNT_MAX) /** 菜品原价（单位：分） */
+    initQuantity Integer required min(0) max(QUANTITY_MAX) /** 初始库存 */
+    salesQuantity Integer required min(0) max(QUANTITY_MAX) /** 菜品销售数量 */
+    lastModifiedDate Instant required /** 最后统计时间 */
+}
+
+/**
+ * 菜品销售报表
+ * @author Jo
+ */
+entity FoodSalesReport {
+    day Instant required /** 营业日（只有日期，不需要时间） */
+    shopSN String required maxlength(SHOP_SN_MAXLENGTH) /** 门店编号 */
+    shopName String required maxlength(SHOP_NAME_MAXLENGTH) /** 门店名称 */
+    categorySN String required maxlength(CATEGORY_SN) /** 分类编号　*/
+    categoryName String required maxlength(CATEGORY_NAME) /** 分类名称 */
+    foodSN String required maxlength(FOOD_SN) /** 菜品编号 */
+    foodName String required maxlength(FOOD_NAME) /** 菜品名称 */
+    cost Integer required  /** 成本（单位：分） */
+    price Integer required /** 售价（单位：分） */
+    originalPrice Integer  /** 原价（单位：分） */
+    salesQuantity Integer  /** 销售数量 */
+    salesAmount Integer    /** 销售金额（单位：分）= 售价 * 销售数量 */
+    refundOrders Integer   /** 退款单数 */
+    refundAmount Integer   /** 退款金额 */
+    grossProfit Integer  /** 毛利（单位：分）= (售价 - 成本) * 销售数量 */
+    initQuantity Integer /** 初始库存 */
+    remainder Integer /** 剩余库存 */
+}
+
+/**
+ * 积分
+ * @author Jo
+ */
+entity RewardPoints {
+    memberName String required maxlength(USER_MAXLENGTH) /** 会员名称 */
+    memberSN String required maxlength(MEMBER_SN_MAXLENGTH) /** 会员编号 */
+    balance Integer required min(0) /** 积分余额 */
+    lastModifiedDate Instant required /** 最后统计时间 */
+}
+
+/**
+ * 积分明细
+ * @author Jo
+ */
+entity RewardPointsRecord {
+    amount Integer required /** 积分数额 */
+    remark String maxlength(100)  /** 备注。要记录所对应的订单号 */
+    createdDate Instant required /** 发生时间　*/
+}
+
+/**
+ * 卡券
+ * 卡券编号取自创建时间，格式：一个大写字母的卡券类型标志+四位年数字+两位月份数字+两位日数字+两位小时数（24小时制）+两位分钟数+两位秒数+三位毫秒数。
+ * 卡券类型标志：C（代金券）、D（折扣券）、G（通用兑换券）、B（买一送一兑换券）。
+ * @author Jo
+ */
+entity Card {
+    sn String required unique maxlength(CARD_SN_MAXLENGTH) /** 卡券编号 */
+    cardType CardType required  /** 卡券类型 */
+    title String required maxlength(CARD_TITLE_MAXLENGTH)  /** 标题 */
+    thumbnail String maxlength(URL_MAXLENGTH)  /** 缩略图 */
+    details String maxlength(CARD_DESC_MAXLENGTH)  /** 优惠说明（兑换券的兑换内容也是写在这里） */
+    validPeriodBeginAt Instant  /** 有效期开始时间 */
+    validPeriodEndAt Instant    /** 有效期截止时间 */
+    quantity Integer min(0) max(CARD_QUANTITY_MAX)    /** 投放数量 */
+    receivedQuantity Integer min(0) max(CARD_QUANTITY_MAX)  /** 已领取数量，需采用乐观锁更新 */
+    canUseWithOtherCard Boolean required  /** 能否与其他卡券同时使用 */
+    acceptCategories String maxlength(500)  /** 适用的菜品分类。分类编号之间由逗号分隔，值为空时表示不限定分类 */
+    acceptShops String maxlength(500)  /** 适用的门店。门店编号之间由逗号分隔，值为空时表示不限定门店 */
+    leastCost Integer min(0) max(AMOUNT_MAX)  /** 起用金额，单位为分。如果无起用门槛则填0 */
+    reduceCost Integer min(0) max(AMOUNT_MAX) /** 减免金额，单位为分（代金券专用） */
+    discount Integer min(0) max(100)  /** 打折额度（百分比，例如：30就是七折）（折扣券专用） */
+    gift String maxlength(FOOD_SN) /** 兑换的菜品编号（兑换券专用） */
+    giftQuantity Integer min(0) max(QUANTITY_MAX) /** 兑换菜品数量（兑换券专用）　*/
+    status CardStatus required /** 卡券状态。这里只可能取 NEW 和 PUT 两种值 */
+    createdBy String required maxlength(USER_MAXLENGTH)
+    createdDate Instant required
+    deliveriedBy String maxlength(USER_MAXLENGTH)  /** 投放人 */
+    deliveriedDate Instant  /** 投放时间 */
+    lastModifiedDate Instant
+    lastModifiedBy String maxlength(USER_MAXLENGTH)
+}
+
+/**
+ * 卡券类型
+ * CASH：代金券, DISCOUNT：折扣券，GIFT：通用兑换券，BUY_ONE_GET_ONE：买一送一兑换券
+ * @author Jo
+ */
+enum CardType {
+    CASH, DISCOUNT, GIFT, BUY_ONE_GET_ONE
+}
+
+/**
+ * 卡券状态
+ * NEW：草稿，PUT：已投放，DISCONTINUE：提前中止，EXPIRED：已过期
+ * @author Jo
+ */
+enum CardStatus {
+    NEW, PUT, DISCONTINUE, EXPIRED
+}
+
+/**
+ * 已完结卡券
+ * 已经过期或中止的卡券将被移到这里。
+ * @author Jo
+ */
+entity FinalCard {
+    sn String required unique maxlength(CARD_SN_MAXLENGTH) /** 卡券编号 */
+    cardType CardType required  /** 卡券类型 */
+    title String required maxlength(CARD_TITLE_MAXLENGTH)  /** 标题 */
+    thumbnail String maxlength(URL_MAXLENGTH)  /** 缩略图 */
+    details String maxlength(CARD_DESC_MAXLENGTH)  /** 优惠说明（兑换券的兑换内容也是写在这里） */
+    validPeriodBeginAt Instant  /** 有效期开始时间 */
+    validPeriodEndAt Instant    /** 有效期截止时间 */
+    quantity Integer min(0) max(CARD_QUANTITY_MAX)    /** 投放数量 */
+    receivedQuantity Integer min(0) max(CARD_QUANTITY_MAX)  /** 已领取数量 */
+    canUseWithOtherCard Boolean required  /** 能否与其他卡券同时使用 */
+    acceptCategories String maxlength(500)  /** 适用的菜品分类。分类编号之间由逗号分隔，值为空时表示不限定分类 */
+    acceptShops String maxlength(500)  /** 适用的门店。门店编号之间由逗号分隔，值为空时表示不限定门店 */
+    leastCost Integer min(0) max(AMOUNT_MAX)  /** 起用金额，单位为分。如果无起用门槛则填0 */
+    reduceCost Integer min(0) max(AMOUNT_MAX) /** 减免金额，单位为分（代金券专用） */
+    discount Integer min(0) max(100)  /** 打折额度（百分比，例如：30就是七折）（折扣券专用） */
+    gift String maxlength(FOOD_SN) /** 兑换的菜品（兑换券专用） */
+    giftQuantity Integer min(0) max(QUANTITY_MAX) /** 兑换菜品数量（兑换券专用）　*/
+    status CardStatus required /** 卡券状态。这里只可能取 DISCONTINUE 和 EXPIRED 两种值 */
+    createdBy String required maxlength(USER_MAXLENGTH)
+    createdDate Instant required
+    deliveriedBy String maxlength(USER_MAXLENGTH)  /** 投放人 */
+    deliveriedDate Instant  /** 投放时间 */
+    discontinueBy String maxlength(USER_MAXLENGTH)  /** 中止人 */
+    discontinueDate Instant  /** 中止时间 */
+    lastModifiedDate Instant
+    lastModifiedBy String maxlength(USER_MAXLENGTH)
+}
+
+/**
+ * 卡包，即已被用户领取的卡券
+ * 卡券核销（已消费或过期）后，将转变为WriteOffCard中。
+ * 订单取消，如果卡券没有失效，则相应已核销的卡券应该重新恢复未使用状态，即从WriteOffCard表移回本表，并且是未占用状态。
+ * 部分退款的订单，不退还卡券；全额退款的订单，要退还卡券。
+ * 卡券被订单选用，即使该订单尚未支付，则该卡券处于占用状态，不能被其他订单使用，除非它恢复可用状态。
+ * @author Jo
+ */
+entity CardHolder {
+    code String required unique maxlength(CARD_CODE_MAXLENGTH)  /** 优惠码，在领取时自动生成 */
+    cardSN String required maxlength(CARD_SN_MAXLENGTH)  /** 卡券编号 */
+    cardType CardType required  /** 卡券类型 */
+    title String required maxlength(CARD_TITLE_MAXLENGTH)  /** 标题 */
+    thumbnail String maxlength(URL_MAXLENGTH)  /** 缩略图 */
+    details String maxlength(CARD_DESC_MAXLENGTH)  /** 优惠说明（兑换券的兑换内容也是写在这里） */
+    validPeriodBeginAt Instant  /** 有效期开始时间 */
+    validPeriodEndAt Instant    /** 有效期截止时间 */
+    canUseWithOtherCard Boolean required  /** 能否与其他卡券同时使用 */
+    acceptCategories String maxlength(500)  /** 适用的菜品分类。分类编号之间由逗号分隔，值为空时表示不限定分类 */
+    acceptShops String maxlength(500)  /** 适用的门店。门店编号之间由逗号分隔，值为空时表示不限定门店 */
+    leastCost Integer min(0) max(AMOUNT_MAX)  /** 起用金额，单位为分。如果无起用门槛则填0 */
+    reduceCost Integer min(0) max(AMOUNT_MAX) /** 减免金额，单位为分（代金券专用） */
+    discount Integer min(0) max(100)  /** 打折额度（百分比，例如：30就是七折）（折扣券专用） */
+    gift String maxlength(FOOD_SN) /** 兑换的菜品（兑换券专用） */
+    giftQuantity Integer min(0) max(QUANTITY_MAX) /** 兑换菜品数量（兑换券专用）　*/
+    receivedBy String required maxlength(USER_MAXLENGTH)  /** 领取者 */
+    receivedDate Instant required  /** 领取时间 */
+    held String maxlength(ORDER_SN_MAXLENGTH) /** 表示是否被占用，非空时是占用它的订单编号。该字段只有是空时才能被设置新值，否则只能执行清空操作。 */
+}
+
+/**
+ * 卡包中已核销的卡券
+ * @author Jo
+ */
+entity WriteOffCard {
+    code String required unique maxlength(CARD_CODE_MAXLENGTH)  /** 优惠码，在领取时自动生成 */
+    cardSN String required maxlength(CARD_SN_MAXLENGTH)  /** 卡券编号 */
+    cardType CardType required  /** 卡券类型 */
+    title String required maxlength(CARD_TITLE_MAXLENGTH)  /** 标题 */
+    thumbnail String maxlength(URL_MAXLENGTH)  /** 缩略图 */
+    details String maxlength(CARD_DESC_MAXLENGTH)  /** 优惠说明（兑换券的兑换内容也是写在这里） */
+    validPeriodBeginAt Instant  /** 有效期开始时间 */
+    validPeriodEndAt Instant    /** 有效期截止时间 */
+    canUseWithOtherCard Boolean required  /** 能否与其他卡券同时使用 */
+    acceptCategories String maxlength(500)  /** 适用的菜品分类。分类编号之间由逗号分隔，值为空时表示不限定分类 */
+    acceptShops String maxlength(500)  /** 适用的门店。门店编号之间由逗号分隔，值为空时表示不限定门店 */
+    leastCost Integer min(0) max(AMOUNT_MAX)  /** 起用金额，单位为分。如果无起用门槛则填0 */
+    reduceCost Integer min(0) max(AMOUNT_MAX) /** 减免金额，单位为分（代金券专用） */
+    discount Integer min(0) max(100) /** 打折额度（百分比，例如：30就是七折）（折扣券专用） */
+    gift String maxlength(FOOD_SN) /** 兑换的菜品（兑换券专用） */
+    giftQuantity Integer min(0) max(QUANTITY_MAX) /** 兑换菜品数量（兑换券专用）　*/
+    receivedBy String required maxlength(USER_MAXLENGTH)  /** 领取者 */
+    receivedDate Instant required  /** 领取时间 */
+    orderSN String maxlength(ORDER_SN_MAXLENGTH) /** 订单编号 */
+    status WriteOffStatus required  /** 核销状态 */
+    writeOffDate Instant required  /** 核销时间 */
+}
+
+/**
+ * 核销状态
+ * CONSUMED：已消费，EXPIRED：已过期未消费
+ * @author Jo
+ */
+enum WriteOffStatus {
+    CONSUMED, EXPIRED
+}
+
+/**
+ * 轮播
+ * @author Jo
+ */
+entity Carousel {
+    picture String required maxlength(URL_MAXLENGTH) /** 大图 */
+    sort Integer required min(SORT_MIN) max(SORT_MAX) /** 轮播的顺序 */
+    status CarouselStatus required
+    createdBy String required maxlength(USER_MAXLENGTH)
+    createdDate Instant required
+    lastModifiedDate Instant
+    lastModifiedBy String maxlength(USER_MAXLENGTH)
+}
+
+/**
+ * 轮播图片的状态
+ * NEW：草稿，PUBLISHED：已发布，RECEDED：已撤回
+ * @author Jo
+ */
+enum CarouselStatus {
+    NEW, PUBLISHED, RECEDED
+}
+
+/**
+ * 公告
+ * @author Jo
+ */
+entity Notice {
+    content String required maxlength(100) /** 公告内容 */
+    sort Integer required min(SORT_MIN) max(SORT_MAX) /** 公告的顺序 */
+    status NoticeStatus required
+    createdBy String required maxlength(USER_MAXLENGTH)
+    createdDate Instant required
+    lastModifiedDate Instant
+    lastModifiedBy String maxlength(USER_MAXLENGTH)
+}
+
+/**
+ * 公告的状态
+ * NEW：草稿，PUBLISHED：已发布，RECEDED：已撤回
+ * @author Jo
+ */
+enum NoticeStatus {
+    NEW, PUBLISHED, RECEDED
 }
 
 
 relationship ManyToOne {
-  Food{category} to FoodCategory
-  WeekMenu{food} to Food
+    Food{category} to FoodCategory
+    WeekMenu{food} to Food
+    Shop{merchant} to Merchant
 }
 
 relationship OneToMany {
-  WeekMenu{weekStocks} to WeekStock
+    WeekMenu{weekStocks} to WeekStock
+    RewardPoints{records} to RewardPointsRecord
 }
 
-paginate * with pagination except FoodCategory, WeekMenu, Shop
+
+paginate * with pagination except FoodCategory, WeekMenu, WeekStock, Shop, Merchant, DeliveryAddress, Carousel
 service * with serviceClass
 dto * with mapstruct
