@@ -51,14 +51,14 @@
                     <div>
                         <img *ngIf="img" [src]="img" />
                     </div>
-                    <div *ngIf="!isLt2M || !isLt123x124 || !isLtPngOrJpeg">
+                    <div *ngIf="!isLt200K || !isLt123x124 || !isLtPngOrJpeg">
                         <small class="form-text text-danger"
                                *ngIf="!isLtPngOrJpeg">
                         图片必须是PNG、JPG、JPEG类型
                         </small>
                         <small class="form-text text-danger"
-                               *ngIf="!isLt2M">
-                        图片大小超过了2M
+                               *ngIf="!isLt200K">
+                        图片大小超过了200K
                         </small>
                         <small class="form-text text-danger"
                                *ngIf="!isLt123x124">
@@ -153,7 +153,7 @@
                     <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
                 </button>
 
-                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving || !isLt200K || !isLt123x124 || !isLtPngOrJpeg" class="btn btn-primary">
                     <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
                 </button>
             </div>

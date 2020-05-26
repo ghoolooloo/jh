@@ -16,12 +16,17 @@ import { FoodCategoryService } from './food-category.service';
 })
 export class FoodCategoryUpdateComponent implements OnInit {
   isSaving = false; // 控制“保存”按钮是否禁用，以避免重复提交
+  isLtPngOrJpeg = true;
+  isLt200K = true;
+  isLt123x124 = true;
+  categoryIcon: string | undefined; // 菜品分类图标的URL
+  categoryIconFile: File | undefined; // 要上传的菜品分类图标文件
 
   editForm = this.fb.group({
     id: [],
     name: [null, [Validators.required, Validators.maxLength(10)]],
     sn: [null, [Validators.required, Validators.maxLength(10)]],
-    icon: [null, [Validators.maxLength(30)]],
+    icon: [],
     sort: [null, [Validators.required, Validators.min(0), Validators.max(999999999), Validators.pattern('^[+-]?\\d+$')]],
     createdBy: [null, [Validators.required, Validators.maxLength(20)]],
     createdDate: [null, [Validators.required]],
@@ -55,6 +60,8 @@ export class FoodCategoryUpdateComponent implements OnInit {
       lastModifiedDate: foodCategory.lastModifiedDate ? foodCategory.lastModifiedDate.format(DATE_TIME_FORMAT) : null,
       lastModifiedBy: foodCategory.lastModifiedBy
     });
+
+    this.categoryIcon = foodCategory.icon; // 用来自数据库的菜品分类图标更新页面
   }
 
   previousState(): void {
@@ -70,6 +77,40 @@ export class FoodCategoryUpdateComponent implements OnInit {
       this.subscribeToSaveResponse(this.foodCategoryService.create(foodCategory));
     }
   }
+
+  beforeUpload = (file: File): boolean => {
+    this.isLtPngOrJpeg = /\.(jpg|jpeg|png|JPG|JPEG|PNG)$/.test(file.name);
+
+    if (this.isLtPngOrJpeg) {
+      this.isLt200K = file.size / 1024 / 1024 < 2;
+
+      if (this.isLt200K) {
+        // eslint-disable-next-line @typescript-eslint/no-this-alias
+        const _this = this;
+        const reader = new FileReader();
+        reader.onload = function(e: ProgressEvent<FileReader>): any {
+          const data = e.target!.result!.toString();
+          if (data) {
+            // 加载图片获取图片真实宽度和高度
+            const image = new Image();
+            image.onload = function(): any {
+              const width = image.width;
+              const height = image.height;
+              _this.isLt123x124 = width === 124 || height === 124;
+              if (_this.isLt123x124) {
+                _this.categoryIcon = data;
+                _this.categoryIconFile = file;
+              }
+            };
+            image.src = data;
+          }
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+
+    return false; // 返回 false 则停止上传。这里我们手动上传，因此总是返回false
+  };
 
   private createFromForm(): IFoodCategory {
     return {
@@ -99,10 +140,16 @@ export class FoodCategoryUpdateComponent implements OnInit {
 
   protected onSaveSuccess(): void {
     this.isSaving = false;
+    this.isLtPngOrJpeg = true;
+    this.isLt200K = true;
+    this.isLt123x124 = true;
     this.previousState();
   }
 
   protected onSaveError(): void {
     this.isSaving = false;
+    this.isLtPngOrJpeg = true;
+    this.isLt200K = true;
+    this.isLt123x124 = true;
   }
 }
